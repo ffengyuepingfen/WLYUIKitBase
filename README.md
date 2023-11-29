@@ -32,3 +32,10 @@ pod 'WLYUIKitBase'
 ## License
 
 WLYUIKitBase is available under the MIT license. See the LICENSE file for more info.
+
+
+## update 11.29 
+1、 public protocol LayoutAnchor  删除
+2、 public protocol LayoutDimension  删除
+3、 添加 log 日志框架
+
