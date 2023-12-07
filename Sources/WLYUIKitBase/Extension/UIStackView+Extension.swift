@@ -109,8 +109,6 @@ public class VStack: UIStackView {
         distribution: UIStackView.Distribution = .fill) {
             
         self.init(arrangedSubviews: [], axis: .vertical, spacing: spacing, alignment:alignment, distribution: distribution)
-            
-            print("axis:\(axis)")
     }
     
     override init(frame: CGRect) {

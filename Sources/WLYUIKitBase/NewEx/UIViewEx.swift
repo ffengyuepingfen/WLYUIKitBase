@@ -26,10 +26,10 @@ extension UIView {
         let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: GConfig.ScreenW, height: 44))
         tableHeaderView.backgroundColor = UIColor.clear
         tableHeaderView.addSubviewAnchor(subView: backView, insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
-        var leftMagin = 8.0
+        var leftMagin = 16.0
         if let icon {
-            leftMagin = 44
-            let imageView = UIImageView(frame: CGRect(x: 8, y: 11, width: 22, height: 22))
+            leftMagin = 46
+            let imageView = UIImageView(frame: CGRect(x: 16, y: 11, width: 22, height: 22))
             imageView.image = icon.withRenderingMode(.alwaysTemplate)
             imageView.tintColor = tintColor
             backView.addSubview(imageView)
