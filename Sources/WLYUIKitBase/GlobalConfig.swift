@@ -32,8 +32,13 @@ public struct GConfig {
     // MARK: - 自定义打印
     /// 自定义打印
     /// - Parameter msg: 打印的内容
-    public static func log(_ msg: Any...) {
-        GCLog.info(msg)
+    public static func log(_ msg: Any...,
+                           isWriteLog: Bool = false,
+                           file: NSString = #file,
+                           line: Int = #line,
+                           column: Int = #column,
+                           fn: String = #function) {
+        GCLog.info(msg, isWriteLog: isWriteLog, file: file, line: line, column: column,fn: fn)
     }
 
     static func isFullScreen() -> Bool {

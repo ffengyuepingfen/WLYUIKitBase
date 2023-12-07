@@ -17,14 +17,27 @@ public enum GCLogOption {
 
 public struct GCLog {
     
-    public static func info(_ msg: Any...) {
-        log(msg, option: .info)
+    public static func info(_ msg: Any...,
+                            isWriteLog: Bool = false,
+                            file: NSString = #file,
+                            line: Int = #line,
+                            column: Int = #column,
+                            fn: String = #function) {
+        log(msg, option: .info, isWriteLog: isWriteLog, file: file, line: line, column: column,fn: fn)
     }
-    public static func error(_ msg: Any...) {
-        log(msg, option: .error)
+    public static func error(_ msg: Any...,isWriteLog: Bool = false,
+                             file: NSString = #file,
+                             line: Int = #line,
+                             column: Int = #column,
+                             fn: String = #function) {
+        log(msg, option: .error, isWriteLog: isWriteLog, file: file, line: line, column: column,fn: fn)
     }
-    public static func notice(_ msg: Any...) {
-        log(msg, option: .notice)
+    public static func notice(_ msg: Any...,isWriteLog: Bool = false,
+                              file: NSString = #file,
+                              line: Int = #line,
+                              column: Int = #column,
+                              fn: String = #function) {
+        log(msg, option: .notice, isWriteLog: isWriteLog, file: file, line: line, column: column,fn: fn)
     }
     
     // MARK: - 自定义打印
