@@ -64,3 +64,47 @@ extension UIView {
         return vi
     }
 }
+
+
+extension UIView {
+  
+        /// 在 uiview 上添加小红点
+        public func addRedDot() {
+            let dotSize = CGSize(width: 10, height: 10)
+            let dotOrigin = CGPoint(x: bounds.width, y: 0)
+            
+            let dotLayer = CALayer()
+            dotLayer.name = "RedDot"
+            dotLayer.backgroundColor = UIColor.red.cgColor
+            dotLayer.bounds = CGRect(origin: .zero, size: dotSize)
+            dotLayer.position = dotOrigin
+            dotLayer.cornerRadius = dotSize.width / 2
+            
+            layer.addSublayer(dotLayer)
+        }
+        
+        /// 在 uiview 上添加小红点
+        public func removeLayer(name: String) {
+            if let sublayers = self.layer.sublayers {
+                for layer in sublayers {
+                    if layer.name == name {
+                        layer.removeFromSuperlayer()
+                        break  // 如果只需要删除第一个匹配的图层，可以使用 break 结束循环
+                    }
+                }
+            }
+        }
+        
+        /// 在 uiview 上添加小红点
+        public func removeRedDot() {
+            if let sublayers = self.layer.sublayers {
+                for layer in sublayers {
+                    if layer.name == "RedDot" {
+                        layer.removeFromSuperlayer()
+                        break  // 如果只需要删除第一个匹配的图层，可以使用 break 结束循环
+                    }
+                }
+            }
+        }
+
+}
