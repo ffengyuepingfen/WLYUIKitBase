@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "WLYUIKitBase",
+    defaultLocalization: "zh-Hans",
     platforms: [
         .iOS(.v13),
         .macOS(.v10_14)

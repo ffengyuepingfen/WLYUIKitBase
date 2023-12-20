@@ -49,10 +49,12 @@ public class SWQRCodeViewController: UIViewController {
     }
     
     @objc func inputAction() {
-        
-        UIAlertController.showSingleTextFiled(message: "请输入充电设备号",viewController: self, placeholder: "充电设备号") { [weak self] num in
+        UIAlertController.showSingleTextFiled(message: "请输入充电设备号", placeholder: "充电设备号") { [weak self] num in
             self?.sw_handle(value: num)
         }
+//        UIAlertController.showSingleTextFiled(message: "请输入充电设备号",viewController: self, placeholder: "充电设备号") { [weak self] num in
+//            self?.sw_handle(value: num)
+//        }
     }
     
     @objc func openLightAction() {
