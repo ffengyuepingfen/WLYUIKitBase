@@ -31,7 +31,10 @@ let package = Package(
             ]),
         .target(
             name: "OC",
-            dependencies: []),
+            dependencies: [],
+            resources: [
+                            .process("Resources")
+                        ]),
         .testTarget(
             name: "WLYUIKitBaseTests",
             dependencies: ["WLYUIKitBase"]),
