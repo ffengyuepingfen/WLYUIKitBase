@@ -837,7 +837,14 @@ public extension ExpressibleByStringLiteral {
     // MARK: 4.1、字符串 转 CGFloat
     /// 字符串 转 Float
     /// - Returns: CGFloat
-    func toCGFloat() -> CGFloat {
+    func toCGFloat() -> CGFloat? {
+        if let doubleValue = Double(self as! String) {
+            return CGFloat(doubleValue)
+        }
+        return nil
+    }
+    
+    func toSafeCGFloat() -> CGFloat {
         if let doubleValue = Double(self as! String) {
             return CGFloat(doubleValue)
         }

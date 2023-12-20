@@ -10,11 +10,26 @@ import Foundation
 import UIKit
 import SafariServices
 
+extension UIImage {
+    convenience init?(named: String) {
+        self.init(named: named, in: .module, with: nil)
+    }
+}
+
 extension UIApplication {
     
     public static var k_keyWindow: UIWindow? {
-        UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }.first?.windows.first
+        if let win = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }.first?.windows.first {
+            return win
+        }else{
+                
+            if let w = UIApplication.shared.delegate?.window, let unwrapedWindow = w {
+                return w
+            }else{
+                return nil
+            }
+        }
     }
 }
 
@@ -42,12 +57,11 @@ public struct GConfig {
     }
 
     static func isFullScreen() -> Bool {
-        if #available(iOS 11, *) {
-            guard let w = UIApplication.shared.delegate?.window, let unwrapedWindow = w else {
+        if #available(iOS 13, *) {
+            guard let w = UIApplication.k_keyWindow else {
                 return false
             }
-            if unwrapedWindow.safeAreaInsets.left > 0 || unwrapedWindow.safeAreaInsets.bottom > 0 {
-                print(unwrapedWindow.safeAreaInsets)
+            if w.safeAreaInsets.left > 0 || w.safeAreaInsets.bottom > 0 {
                 return true
             }
         }

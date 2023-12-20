@@ -43,7 +43,7 @@ extension UIView {
     /// - Parameters:
     ///   - subView: 子View
     ///   - insets: 间距
-    public static func bg(color: UIColor = .secondarySystemBackground, radius: CGFloat = 12) -> UIView {
+    public static func bg(color: UIColor = .SecondaryBackground(), radius: CGFloat = 12) -> UIView {
         let vi = UIView()
         vi.backgroundColor = color
         vi.layer.cornerRadius = radius
