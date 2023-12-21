@@ -181,9 +181,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#F55385")
-            default:
                 return UIColor.hex(hexString: "#E94D79")
+            default:
+                return UIColor.hex(hexString: "#F55385")
             }
         }
     }
@@ -193,9 +193,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#000000")
-            default:
                 return UIColor.hex(hexString: "#FFFFFF")
+            default:
+                return UIColor.hex(hexString: "#000000")
             }
         }
     }
@@ -206,9 +206,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#666666")
-            default:
                 return UIColor.hex(hexString: "#CCCCCC")
+            default:
+                return UIColor.hex(hexString: "#666666")
             }
         }
     }
@@ -219,9 +219,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#999999")
-            default:
                 return UIColor.hex(hexString: "#AAAAAA")
+            default:
+                return UIColor.hex(hexString: "#999999")
             }
         }
     }
@@ -232,9 +232,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#F2F1F6")
-            default:
                 return UIColor.hex(hexString: "#333333")
+            default:
+                return UIColor.hex(hexString: "#F2F1F6")
             }
         }
     }
@@ -244,9 +244,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#FFFFFF")
-            default:
                 return UIColor.hex(hexString: "#19213C")
+            default:
+                return UIColor.hex(hexString: "#FFFFFF")
             }
         }
     }
@@ -256,9 +256,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#F4F6FB")
-            default:
                 return UIColor.hex(hexString: "#1E2746")
+            default:
+                return UIColor.hex(hexString: "#F4F6FB")
             }
         }
     }
@@ -268,9 +268,9 @@ extension UIColor {
         UIColor { theme in
             switch theme.userInterfaceStyle {
             case .dark:
-                return UIColor.hex(hexString: "#EFEFF4")
-            default:
                 return UIColor.hex(hexString: "#444444")
+            default:
+                return UIColor.hex(hexString: "#EFEFF4")
             }
         }
     }
