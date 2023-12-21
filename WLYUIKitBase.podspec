@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WLYUIKitBase'
-  s.version          = '0.1.2'
+  s.version          = '1.0.8'
   s.summary          = 'A short description of WLYUIKitBase.'
 
 # This description is used to generate tags and improve search results.
@@ -30,11 +30,11 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '13.0'
 
-  s.source_files = 'Sources/**/*'
-  
-  # s.resource_bundles = {
-  #   'WLYUIKitBase' => ['WLYUIKitBase/Assets/*.png']
-  # }
+  s.source_files = 'Sources/**/*.{h,m,swift}'
+  # s.remove_files = 'Sources/WLYUIKitBase/Resources/*'
+  s.resource_bundles = {
+    'WLYUIKitBase' => ['Sources/WLYUIKitBase/Resources/*']
+  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

@@ -10,9 +10,22 @@ import Foundation
 import UIKit
 import SafariServices
 
+
+var ResourceBundle: Bundle {
+#if COCOAPODS
+    print("This library is imported via CocoaPods")
+    let ResourceBundle = Bundle.i18n
+    return ResourceBundle
+#else
+    print("This library is not imported via CocoaPods")
+    let ResourceBundle = Bundle.module
+    return ResourceBundle
+#endif
+}
+
 extension UIImage {
     convenience init?(named: String) {
-        self.init(named: named, in: .module, with: nil)
+        self.init(named: named, in: ResourceBundle, with: nil)
     }
 }
 
