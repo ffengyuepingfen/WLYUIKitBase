@@ -9,6 +9,11 @@
 import UIKit
 import AVFoundation
 
+public enum SWQRCodeViewOption {
+    case Recharge
+    case Normal
+}
+
 public class SWQRCodeViewController: UIViewController {
     
     var config = SWQRCodeCompat()
@@ -43,8 +48,11 @@ public class SWQRCodeViewController: UIViewController {
         return button
     }()
     
-    public init(callback:@escaping ((_ content:String)->Void)) {
+    private var pageOption: SWQRCodeViewOption
+    
+    public init(option: SWQRCodeViewOption = .Normal,callback:@escaping ((_ content:String)->Void)) {
         self.callback = callback
+        self.pageOption = option
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,9 +60,6 @@ public class SWQRCodeViewController: UIViewController {
         UIAlertController.showSingleTextFiled(message: "请输入充电设备号", placeholder: "充电设备号") { [weak self] num in
             self?.sw_handle(value: num)
         }
-//        UIAlertController.showSingleTextFiled(message: "请输入充电设备号",viewController: self, placeholder: "充电设备号") { [weak self] num in
-//            self?.sw_handle(value: num)
-//        }
     }
     
     @objc func openLightAction() {
@@ -73,8 +78,8 @@ public class SWQRCodeViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.config.scannerType = .qr
-        navigationItem.title =
-            SWQRCodeHelper.sw_navigationItemTitle(type: self.config.scannerType)
+        navigationItem.title = pageOption == .Normal ? "二维码" : "扫码充电"
+//            SWQRCodeHelper.sw_navigationItemTitle(type: self.config.scannerType)
         
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         
@@ -114,15 +119,16 @@ public class SWQRCodeViewController: UIViewController {
             }
         }
         
-        let hstack = HStack(alignment: .center, distribution: .equalSpacing)
-        hstack.addArrangedSubviews([UIView(), input, openLight, selectPic, UIView()]) {
-            input.sizeConstraint = CGSize(width: 66, height: 66)
-            openLight.sizeConstraint = CGSize(width: 66, height: 66)
-            selectPic.sizeConstraint = CGSize(width: 66, height: 66)
+        if pageOption == .Recharge {
+            let hstack = HStack(alignment: .center, distribution: .equalSpacing)
+            hstack.addArrangedSubviews([UIView(), input, openLight, selectPic, UIView()]) {
+                input.sizeConstraint = CGSize(width: 66, height: 66)
+                openLight.sizeConstraint = CGSize(width: 66, height: 66)
+                selectPic.sizeConstraint = CGSize(width: 66, height: 66)
+            }
+            
+            self.view.addSubviewAnchor(subView: hstack, insets: UIEdgeInsets(top: (GConfig.ScreenH - GConfig.NavAndBottomBarH)/2, left: 32, bottom: 32, right: 32))
         }
-        
-        self.view.addSubviewAnchor(subView: hstack, insets: UIEdgeInsets(top: (GConfig.ScreenH - GConfig.NavAndBottomBarH)/2, left: 32, bottom: 32, right: 32))
-        
     }
     
     /** 创建扫描器 */

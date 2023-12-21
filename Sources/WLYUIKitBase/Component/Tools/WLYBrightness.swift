@@ -15,10 +15,15 @@ public class WLYBrightness:NSObject {
     public override init() {
         self.queue = OperationQueue()
         self.queue.maxConcurrentOperationCount = 1
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willTerminateNotification, object: nil)
+        saveDefaultBrightness()
     }
     
     /// 保存当前的亮度
-    @objc public func saveDefaultBrightness() {
+    private func saveDefaultBrightness() {
         value = UIScreen.main.brightness
     }
     
@@ -47,22 +52,15 @@ public class WLYBrightness:NSObject {
         graduallySetBrightness(value1: value)
     }
     
-    /// 考虑吧这个问题在这个类里面解决
-    //    //成为激活状态，调高亮度
-    //    -(void)DidBecomeActive{
-    //    //    [JCBrightness graduallySetBrightness:0.8];
-    //        [_brightness graduallySetBrightnessWithValue1:0.8];
-    //    }
-    //
-    //    //失去激活状态，快速恢复之前的亮度
-    //    -(void)willResignActive{
-    //    //    [JCBrightness fastResumeBrightness];
-    //        [_brightness graduallyResumeBrightness];
-    //    }
-    //
-    //
-    //    #pragma mark 移除本地所有通知
-    //    -(void)removeNotification{
-    //        [[NSNotificationCenter defaultCenter] removeObserver:self];
-    //    }
+    @objc private func didBecomeActive() {
+        graduallySetBrightness(value1: 0.9)
+    }
+    
+    @objc private func willResignActive() {
+        graduallyResumeBrightness()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }

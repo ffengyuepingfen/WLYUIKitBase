@@ -13,11 +13,11 @@ import SafariServices
 
 var ResourceBundle: Bundle {
 #if COCOAPODS
-    print("This library is imported via CocoaPods")
+    GCLog.info("This library is imported via CocoaPods")
     let ResourceBundle = Bundle.i18n
     return ResourceBundle
 #else
-    print("This library is not imported via CocoaPods")
+    GCLog.info("This library is not imported via CocoaPods")
     let ResourceBundle = Bundle.module
     return ResourceBundle
 #endif
