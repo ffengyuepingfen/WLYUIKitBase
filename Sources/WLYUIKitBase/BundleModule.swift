@@ -12,7 +12,7 @@ private class BundleFinder {}
 extension Foundation.Bundle {
     
     static let i18n: Bundle = {
-        let bundleName = "WLYUIKitBase_WLYUIKitBase"
+        let bundleName = "WLYUIKitBase"
         let bundleResourceURL = Bundle(for: BundleFinder.self).resourceURL
         let candidates = [
             Bundle.main.resourceURL,
