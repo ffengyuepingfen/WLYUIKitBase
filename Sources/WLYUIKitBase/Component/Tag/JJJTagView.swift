@@ -16,6 +16,8 @@ public enum CicTagwType {
     case compact
     /// 一行三个   默认
     case DivideEqu(Int)
+    
+    case fullRow
 }
 
 public class CicTagView: UIView {
@@ -119,6 +121,8 @@ extension CicTagView: UICollectionViewDelegate, UICollectionViewDataSource, UICo
             return CGSize(width: (collectionView.bounds.width - 40)/CGFloat(num), height: height)
         case .compact:
             return getMultiLineWithFont(font: NSInteger(14.0), text: dataArray[indexPath.row])
+        case .fullRow:
+            return CGSize(width: (collectionView.bounds.width - 40), height: 40)
         }
     }
     
