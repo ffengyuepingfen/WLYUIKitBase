@@ -28,6 +28,20 @@ extension UIImageView {
         maskLayer.path = maskPath.cgPath;
         self.layer.mask = maskLayer
     }
+ 
+    /// 下载图片并添加到视图上
+    public func downloadImage(from url: URL?, placeholder: UIImage?) {
+        self.image = placeholder
+        guard let url else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            
+            let image = UIImage(data: data)
+            self.image = image
+        }.resume()
+    }
     
 }
 

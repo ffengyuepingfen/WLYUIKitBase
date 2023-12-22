@@ -33,11 +33,7 @@ TODO: Add long description of the pod here.
   s.source_files = 'Sources/**/*.{h,m,swift}'
   # s.remove_files = 'Sources/WLYUIKitBase/Resources/*'
   s.resource_bundles = {
-    'WLYUIKitBase' => ['Sources/WLYUIKitBase/Resources/*']
+    'WLYUIKitBase' => ['Sources/WLYUIKitBase/Resources/*','Sources/OC/Resources/*.plist']
   }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-#  s.dependency 'WLYUIKitBaseOC'
-#  s.dependency 'MBProgressHUD'
+  s.dependency 'TZImagePicker'
 end
