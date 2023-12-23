@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "tzimagepicker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitee.com/laoyouHome/TZImagePicker.git",
+      "state" : {
+        "revision" : "a51e9d1d07a96163f682a90ef27f300e3bf80bf2",
+        "version" : "3.8.5"
+      }
+    }
+  ],
+  "version" : 2
+}
