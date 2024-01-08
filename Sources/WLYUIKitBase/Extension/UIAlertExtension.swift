@@ -189,8 +189,12 @@ extension UIAlertController {
         }
     }
     /// 常规的带有确定和取消的弹框
-    public static func showNormalAlert(title:String? = nil,message: String,sureMessage:String = "确定", cancleMessage:String = "取消",confirm: ((UIAlertAction) -> Void)?) {
-        if let vc = k_keyWindow?.rootViewController {
+    public static func showNormalAlert(title:String? = nil,message: String,sureMessage:String = "确定", cancleMessage:String = "取消",in viewController: UIViewController? = nil, confirm: ((UIAlertAction) -> Void)?) {
+        var cacheviewController = viewController
+        if cacheviewController == nil {
+            cacheviewController = k_keyWindow?.rootViewController
+        }
+        if let vc = cacheviewController {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: sureMessage, style: .default, handler: confirm))
             alert.addAction(UIAlertAction(title: cancleMessage, style: .cancel, handler: nil))

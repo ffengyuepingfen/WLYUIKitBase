@@ -80,7 +80,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     // Set default values for properties
     _animationType = MBProgressHUDAnimationFade;
     _mode = MBProgressHUDModeIndeterminate;
-    _margin = 20.0f;
+    _margin = 10.0f;
     _defaultMotionEffectsEnabled = NO;
 
     if (@available(iOS 13.0, tvOS 13, *)) {
