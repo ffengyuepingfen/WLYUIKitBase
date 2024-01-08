@@ -15,7 +15,7 @@ extension UITextField {
                               image: UIImage? = nil,
                               isSecure: Bool = false) -> UITextField {
         let input = UITextField()
-        input.backgroundColor = UIColor.systemBackground
+        input.backgroundColor = UIColor.PrimaryBackground()
         input.placeholder = placeholder
         input.keyboardType = keyboardType
         input.textContentType = textContentType
@@ -45,7 +45,7 @@ extension UITextField {
                               name: String,
                               isSecure: Bool = false) -> UITextField {
         let input = UITextField()
-        input.backgroundColor = UIColor.systemBackground
+        input.backgroundColor = UIColor.PrimaryBackground()
         input.placeholder = placeholder
         input.keyboardType = keyboardType
         input.textContentType = textContentType
@@ -67,6 +67,4 @@ extension UITextField {
         input.layer.cornerRadius = 10
         return input
     }
-    
-    
 }
