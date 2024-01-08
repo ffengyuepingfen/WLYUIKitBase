@@ -9,7 +9,7 @@ import UIKit
 
 extension UITextField {
     
-    static func inputTextView(textContentType: UITextContentType = .emailAddress,
+    public static func inputTextView(textContentType: UITextContentType = .emailAddress,
                               keyboardType: UIKeyboardType = .emailAddress,
                               placeholder: String,
                               image: UIImage? = nil,
@@ -39,7 +39,7 @@ extension UITextField {
     }
     
     
-    static func titleInputTextView(textContentType: UITextContentType = .emailAddress,
+    public static func titleInputTextView(textContentType: UITextContentType = .emailAddress,
                               keyboardType: UIKeyboardType = .emailAddress,
                               placeholder: String,
                               name: String,
