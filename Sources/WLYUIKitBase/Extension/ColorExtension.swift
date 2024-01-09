@@ -157,7 +157,7 @@ extension UIColor {
     }
     
     public static func backGroundColor() -> UIColor {
-        return hex(hexString: "#ededed")
+        return hex(hexString: "#f8f8f8")
     }
     
     ///  背景浅灰色
