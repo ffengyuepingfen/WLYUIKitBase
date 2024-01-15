@@ -17,7 +17,7 @@ public class AppleShare {
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         //不出现在活动项目
         activityVC.excludedActivityTypes = [.print,.saveToCameraRoll,.assignToContact]
-        k_keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
+        UIApplication.k_keyWindow?.rootViewController?.present(activityVC, animated: true, completion: nil)
         // 分享之后的回调
         activityVC.completionWithItemsHandler = { (activityType,completed,returnedItems,activityError) in
             if let callback = callback {

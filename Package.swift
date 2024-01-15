@@ -18,13 +18,15 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://gitee.com/laoyouHome/TZImagePicker.git", .upToNextMajor(from: "3.8.5")),
+        .package(url: "https://gitee.com/laoyouHome/MBProgressHUD.git", .upToNextMajor(from: "1.2.0")),
+        .package(url: "https://gitee.com/laoyouHome/FDFullscreenPopGesture.git", .upToNextMajor(from: "1.1.0")),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "WLYUIKitBase",
-            dependencies: ["OC","TZImagePicker"],
+            dependencies: ["OC","TZImagePicker", "MBProgressHUD", "FDFullscreenPopGesture"],
             resources: [
                 .process("Resources")
             ]),
@@ -32,8 +34,8 @@ let package = Package(
             name: "OC",
             dependencies: [],
             resources: [
-                            .process("Resources")
-                        ]),
+                .process("Resources")
+            ]),
         .testTarget(
             name: "WLYUIKitBaseTests",
             dependencies: ["WLYUIKitBase"]),

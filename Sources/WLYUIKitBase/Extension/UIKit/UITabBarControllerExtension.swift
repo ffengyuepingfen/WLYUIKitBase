@@ -13,7 +13,7 @@ public extension UITabBarController {
     // MARK: 1.1、当前选择索引
     /// 当前选择索引
     static var selectedIdx: Int {
-        guard let keyWindow = k_keyWindow,
+        guard let keyWindow = UIApplication.k_keyWindow,
               let rootController = keyWindow.rootViewController as? UITabBarController else { return 0}
         return rootController.selectedIndex
     }

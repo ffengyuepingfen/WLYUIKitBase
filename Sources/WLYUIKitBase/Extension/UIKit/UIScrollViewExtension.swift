@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum Edge {
+public enum CCEdge {
     case top
     case left
     case bottom
@@ -30,7 +30,7 @@ public extension UIScrollView {
     /// - Parameters:
     ///   - edege: 滚动的位置
     ///   - animated: 是否要动画
-    func scroll(edege: Edge, animated: Bool = true) {
+    func scroll(edege: CCEdge, animated: Bool = true) {
         var offset = self.contentOffset
         switch edege {
         case .top:

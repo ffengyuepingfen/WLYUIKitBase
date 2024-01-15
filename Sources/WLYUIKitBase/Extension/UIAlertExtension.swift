@@ -51,13 +51,13 @@ extension UIAlertController {
                                                 message: nil,
                                                 preferredStyle: .alert)
         //显示提示框
-        if let vc = k_keyWindow?.rootViewController {
+        if let vc = UIApplication.k_keyWindow?.rootViewController {
             vc.present(alertController, animated: true, completion: nil)
         }
         
         //两秒钟后自动消失
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
-            if let vc = k_keyWindow?.rootViewController {
+            if let vc = UIApplication.k_keyWindow?.rootViewController {
                 vc.presentedViewController?.dismiss(animated: false, completion: nil)
             }
         }
@@ -114,7 +114,7 @@ extension UIAlertController {
         })
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        if let vc = k_keyWindow?.rootViewController {
+        if let vc = UIApplication.k_keyWindow?.rootViewController {
             vc.present(alertController, animated: true, completion: nil)
         }
     }
@@ -169,7 +169,7 @@ extension UIAlertController {
     ///   - complated: 是否有确定回调
     ///   - tinColor: 颜色
     public static func showAlertAttMsg(title:String? = nil,message: NSAttributedString,cancle:Bool = false,complated:(() -> Void)? = nil,tinColor:UIColor = UIColor.pumkinBlue()) {
-        if let vc = k_keyWindow?.rootViewController {
+        if let vc = UIApplication.k_keyWindow?.rootViewController {
             showAlert(title:title,message: message, viewController: vc, cancle: cancle, complated: complated, tinColor: tinColor)
         }
     }
@@ -184,7 +184,7 @@ extension UIAlertController {
 
     ///在根视图控制器上弹出确认框(只有一个确认按钮)
     public static func showConfirm(message: String, confirm: ((UIAlertAction) -> Void)?) {
-        if let vc = k_keyWindow?.rootViewController {
+        if let vc = UIApplication.k_keyWindow?.rootViewController {
             showConfirm(message: message, in: vc, confirm: confirm)
         }
     }
@@ -192,7 +192,7 @@ extension UIAlertController {
     public static func showNormalAlert(title:String? = nil,message: String,sureMessage:String = "确定", cancleMessage:String = "取消",in viewController: UIViewController? = nil, confirm: ((UIAlertAction) -> Void)?) {
         var cacheviewController = viewController
         if cacheviewController == nil {
-            cacheviewController = k_keyWindow?.rootViewController
+            cacheviewController = UIApplication.k_keyWindow?.rootViewController
         }
         if let vc = cacheviewController {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -209,7 +209,7 @@ extension UIAlertController {
     ///   - confirm: 确定后的回调
     ///   - isNumber: 键盘的样式
     public static func showSingleTextFiled(message: String,isSecureTextEntry:Bool = false,isNumber:Bool = false,placeholder:String, confirm: ((String) -> Void)?) {
-        if let vc = k_keyWindow?.rootViewController {
+        if let vc = UIApplication.k_keyWindow?.rootViewController {
             let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             alert.addTextField { (textField) in
                 textField.placeholder = placeholder

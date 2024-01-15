@@ -108,6 +108,6 @@ class CicSFSafariManager: NSObject {
         vc.preferredControlTintColor = .white
         // 设置左上角 dismiss 按钮的文案为 cancel
         vc.dismissButtonStyle = .close
-        k_keyWindow?.rootViewController?.present(vc, animated: true)
+        UIApplication.k_keyWindow?.rootViewController?.present(vc, animated: true)
     }
 }

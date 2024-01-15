@@ -120,7 +120,7 @@ public class SWQRCodeViewController: UIViewController {
         }
         
         if pageOption == .Recharge {
-            let hstack = HStack(alignment: .center, distribution: .equalSpacing)
+            let hstack = HHStack(alignment: .center, distribution: .equalSpacing)
             hstack.addArrangedSubviews([UIView(), input, openLight, selectPic, UIView()]) {
                 input.sizeConstraint = CGSize(width: 66, height: 66)
                 openLight.sizeConstraint = CGSize(width: 66, height: 66)

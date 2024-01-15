@@ -77,7 +77,7 @@ extension UIStackView {
 }
 
 // MARK: HStack
-public class HStack: UIStackView {
+public class HHStack: UIStackView {
     public convenience init (
         spacing: CGFloat = 0.0,
         alignment: UIStackView.Alignment = .fill,
@@ -101,7 +101,7 @@ public class HStack: UIStackView {
 }
 
 // MARK: VStack
-public class VStack: UIStackView {
+public class VVStack: UIStackView {
     /// 便捷初始化方法
     public convenience init (
         spacing: CGFloat = 0.0,
@@ -205,9 +205,9 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
         self.isBounces = isBounces
         super.init(frame: CGRect.zero)
         if isVStack {
-            stackView = VStack(spacing: 12.0, alignment: .center)
+            stackView = VVStack(spacing: 12.0, alignment: .center)
         }else{
-            stackView = HStack(alignment: .center)
+            stackView = HHStack(alignment: .center)
             self.scrollView.isPagingEnabled = true
             self.scrollView.isDirectionalLockEnabled = true
 //            self.scrollView.panGestureRecognizer.delegate = self

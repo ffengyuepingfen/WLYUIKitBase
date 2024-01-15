@@ -7,13 +7,11 @@
 //
 
 import Foundation
-
+import MBProgressHUD
 #if canImport(OC)
 import OC
 #endif
 
-
-public let k_keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
 /// 测试
 /**
  hud的样式
@@ -36,7 +34,7 @@ public class PumpkinHUD {
     
     /// 隐藏View
     /// - Parameter toView: toView description
-    public class func hide(toView:UIView? = k_keyWindow?.rootViewController?.view, animated:Bool = true) {
+    public class func hide(toView:UIView? = UIApplication.k_keyWindow?.rootViewController?.view, animated:Bool = true) {
         if let toview = toView {
             MBProgressHUD.hide(for: toview, animated: animated)
         }
@@ -47,7 +45,7 @@ public class PumpkinHUD {
     /// - Parameters:
     ///   - message: message description
     ///   - view: view description
-    public class func showMessage(_ message: String, toView:UIView? = k_keyWindow, delay:TimeInterval = 2.0) {
+    public class func showMessage(_ message: String, toView:UIView? = UIApplication.k_keyWindow, delay:TimeInterval = 2.0) {
         if message.count == 0 { return }
         if let toView = toView {
             let hud = MBProgressHUD.showAdded(to: toView, animated: true)
@@ -82,7 +80,7 @@ public class PumpkinHUD {
     ///   - icon: icon description
     ///   - toView: toView description
     ///   - delay: delay description
-    public class func show(message:String, icon:Data, toView:UIView? = k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
+    public class func show(message:String, icon:Data, toView:UIView? = UIApplication.k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
         if let toView = toView, message.count != 0 {
             let hud = MBProgressHUD.showAdded(to: toView, animated: true)
             hud.bezelView.layer.cornerRadius = 5.0
@@ -114,7 +112,7 @@ public class PumpkinHUD {
     }
 
     // MARK:- 显示loading状态
-    public class func showLoading(message:String, toView:UIView? = k_keyWindow?.rootViewController?.view) {
+    public class func showLoading(message:String, toView:UIView? = UIApplication.k_keyWindow?.rootViewController?.view) {
 
         if let toView = toView {
             //在显示新的之前需要隐藏掉旧的，否则会导致多个loading页面重叠
@@ -144,7 +142,7 @@ public class PumpkinHUD {
 
     //MARK: - 显示带icon的信息
     /// 展示成功的toast
-    public class func showSuccess(message:String, toView:UIView? = k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
+    public class func showSuccess(message:String, toView:UIView? = UIApplication.k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
         if let image = UIImage(named: "success", in: .i18n, compatibleWith: nil),
            let data = image.pngData() {
             self.show(message: message, icon: data, toView: toView, delay: delay)
@@ -152,7 +150,7 @@ public class PumpkinHUD {
     }
 
     /// 展示失败的toast
-    public class func showError(message:String, toView:UIView? = k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
+    public class func showError(message:String, toView:UIView? = UIApplication.k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
 
         if let image = UIImage(named: "error", in: .i18n, compatibleWith: nil),
            let data = image.pngData() {
@@ -162,7 +160,7 @@ public class PumpkinHUD {
     }
 
     /// 展示警告的toast
-    public class func showWarning(message:String, toView:UIView? = k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
+    public class func showWarning(message:String, toView:UIView? = UIApplication.k_keyWindow?.rootViewController?.view, delay:TimeInterval = 2.0) {
 
         if let image = UIImage(named: "warning", in: .i18n, compatibleWith: nil),
            let data = image.pngData() {
@@ -174,7 +172,7 @@ public class PumpkinHUD {
     ///
     /// - Returns: view
     class func viewToshow() -> UIView {
-        var window = k_keyWindow
+        var window = UIApplication.k_keyWindow
         if window?.windowLevel != UIWindow.Level.normal {
             let windowArray = UIApplication.shared.windows
             for tempWin in windowArray {
@@ -221,19 +219,19 @@ extension UIView {
     ///   - message: message description
     ///   - toView: toView description
     ///   - delay: delay description
-    public func showSuccess(message:String, toView:UIView? = k_keyWindow, delay:TimeInterval = 2.0) {
+    public func showSuccess(message:String, toView:UIView? = UIApplication.k_keyWindow, delay:TimeInterval = 2.0) {
         PumpkinHUD.showSuccess(message: message,toView: self, delay: delay)
     }
 
     /// 展示失败的toast
-    public func showError(message:String, toView:UIView? = k_keyWindow, delay:TimeInterval = 2.0) {
+    public func showError(message:String, toView:UIView? = UIApplication.k_keyWindow, delay:TimeInterval = 2.0) {
 
         PumpkinHUD.showError(message: message, toView: self, delay: delay)
 
     }
 
     /// 展示警告的toast
-    public func showWarning(message:String, toView:UIView? = k_keyWindow, delay:TimeInterval = 2.0) {
+    public func showWarning(message:String, toView:UIView? = UIApplication.k_keyWindow, delay:TimeInterval = 2.0) {
 
         PumpkinHUD.showWarning(message: message, toView: self, delay:  delay)
     }
