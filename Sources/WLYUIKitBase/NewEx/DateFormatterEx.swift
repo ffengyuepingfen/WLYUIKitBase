@@ -24,13 +24,15 @@ public enum DateFormatterOptions: String {
     case yyyyMMdd_ns = "yyyyMMdd"
 }
 
+let Cicformatter = DateFormatter()
+
 extension DateFormatter {
     
     /// 获取时间格式 默认全格式
     /// - Parameter formatStr:  yyyy-MM-dd HH:mm:ss
     /// - Returns: 返回时间格式
     static public func cicDefault(format: DateFormatterOptions) -> DateFormatter {
-        let formatter = DateFormatter()
+        let formatter = Cicformatter
         formatter.dateFormat = format.rawValue
         formatter.timeZone = NSTimeZone.system
         formatter.locale = Locale.init(identifier: "zh_CN")
@@ -39,7 +41,7 @@ extension DateFormatter {
     }
     
     static public func cicDefault(formatStr: String = "yyyy-MM-dd HH:mm:ss") -> DateFormatter {
-        let formatter = DateFormatter()
+        let formatter = Cicformatter
         formatter.dateFormat = formatStr
         formatter.timeZone = NSTimeZone.system
         formatter.locale = Locale.init(identifier: "zh_CN")

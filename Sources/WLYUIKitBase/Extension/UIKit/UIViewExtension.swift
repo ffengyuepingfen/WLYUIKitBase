@@ -1586,14 +1586,3 @@ extension UIView {
     }
     
 }
-
-extension UIEdgeInsets {
-    public static let four = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-    public static let eight = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    public static let sixteen = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-    public static let big72 = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
-    
-    public static func userDefine(horizontal: CGFloat, vertical: CGFloat) -> UIEdgeInsets {
-        return UIEdgeInsets(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
-    }
-}

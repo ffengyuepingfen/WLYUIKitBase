@@ -76,11 +76,11 @@ extension EmptyStateView {
     
     private func setUpView() {
         
-        self.addSubviewAnchor(subView: messageView, insets: UIEdgeInsets.userDefine(horizontal: 16, vertical: 130))
+        self.addSubviewAnchor(subView: messageView, insets: UIEdgeInsets(horizontal: 16, vertical: 130))
         
         let vStack = VVStack(spacing: 16, alignment: .center)
         vStack.addArrangedSubviews([imageView, titleLabel, descriptionLabel, vStack.spacer(), primaryButton]) {
-            imageView.sizeConstraint = CGSize(width: 200, height: 200)
+            imageView.sizeConstraint = CGSize(200)
             titleLabel.heightConstraint = 44
             descriptionLabel.heightConstraint = 38
             primaryButton.sizeConstraint = CGSize(width: 128, height: 40)

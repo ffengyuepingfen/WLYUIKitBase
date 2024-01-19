@@ -7,6 +7,7 @@
 ////
 //
 import UIKit
+import FDFullscreenPopGesture
 import WLYUIKitBase
 
 public class ImagePreviewVC: UIViewController {

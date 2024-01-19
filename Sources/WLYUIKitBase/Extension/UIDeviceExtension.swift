@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FDFullscreenPopGesture
 #if canImport(OC)
 import OC
 #endif

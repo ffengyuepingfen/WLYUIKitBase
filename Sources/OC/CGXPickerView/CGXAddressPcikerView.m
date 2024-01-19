@@ -10,8 +10,6 @@
 
 #import "CGXAddressModel.h"
 
-#import "AFileManager.h"
-
 @interface CGXAddressPcikerView ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
     NSInteger rowOfProvince; // 保存省份对应的下标
@@ -163,13 +161,9 @@
     if (self.fileName) {
         if ([self.fileName hasSuffix:@".plist"]) {
             
-            if ([self.fileName isEqualToString:@"orgLineBus.plist"] || [self.fileName isEqualToString:@"orgLineDriver.plist"]) {
-                arrData = [AFileManager readPlistFile:self.fileName FilePath:@"/TrackPlayback"];
-            }else{
-                NSString *fileName = [self.fileName stringByReplacingOccurrencesOfString:@".plist" withString:@""];
-                NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
-                arrData = [NSMutableArray arrayWithContentsOfFile:filePath];
-            }
+            NSString *fileName = [self.fileName stringByReplacingOccurrencesOfString:@".plist" withString:@""];
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"plist"];
+            arrData = [NSMutableArray arrayWithContentsOfFile:filePath];
         } else if ([self.fileName hasSuffix:@".json"]){
             NSString *fileName = [self.fileName stringByReplacingOccurrencesOfString:@".json" withString:@""];
             NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"json"];
