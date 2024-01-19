@@ -67,9 +67,9 @@ public extension UINavigationController {
             return
         }
         
-        var vcs = self.viewControllers[0...(vcsCount - count - 1)]
+        var vcs = Array(self.viewControllers[0...(vcsCount - count - 1)])
         vcs.append(vc)
-        self.setViewControllers(Array(vcs), animated: animated)
+        self.setViewControllers(vcs, animated: animated)
     }
     
     // MARK: 1.4、pop 到某个vc，以传入的vc类型为准，从栈顶逐个便利，直到找到这个vc，如果遍历完成后没找到，则返回false
