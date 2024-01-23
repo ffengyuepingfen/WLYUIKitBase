@@ -12,7 +12,8 @@ import UIKit
  */
 public enum DatePickerStyle {
     case CustomStr
-    case DateYear
+    case DateYearMonths
+    case DateYears
 }
 
 struct DatePickerManager {

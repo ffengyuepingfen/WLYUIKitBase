@@ -75,13 +75,22 @@ class CicStringPickerView: CicBasePickerView {
         self.resultBlock = resultBlock
         self.dataSource = []
         
-        if type == .DateYear {
+        switch type {
+        case .DateYearMonths:
             years = DatePickerManager.yearArray
             months = DatePickerManager.monthArray
+            self.selectYear = "\(Date().year)"
+            self.selectMonth = "\(Date().month)"
+            self.selectedItem = "\(Date().year)-\(Date().month)"
+        case .DateYears:
+            years = DatePickerManager.yearArray
+            self.selectYear = "\(Date().year)"
+            self.selectedItem = "\(Date().year)"
+        default:
+            self.selectedItem = ""
+            break
         }
-        self.selectYear = "\(Date().year)"
-        self.selectMonth = "\(Date().month)"
-        self.selectedItem = "\(Date().year)-\(Date().month)"
+        
         super.init(frame: CGRect.zero)
         self.manager = manager
         loadData()
@@ -151,8 +160,10 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch type {
         case .CustomStr:
             return 1
-        case .DateYear:
+        case .DateYearMonths:
             return 2
+        case .DateYears:
+            return 1
         }
     }
     
@@ -161,12 +172,14 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch type {
         case .CustomStr:
             return dataSource.count
-        case .DateYear:
+        case .DateYearMonths:
             if component == 0 {
                 return years.count
             }else{
                 return months.count
             }
+        case .DateYears:
+            return years.count
         }
     }
     
@@ -175,12 +188,14 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch type {
         case .CustomStr:
             return dataSource[row]
-        case .DateYear:
+        case .DateYearMonths:
             if component == 0 {
                 return years[row]
             }else{
                 return months[row]
             }
+        case .DateYears:
+            return years[row]
         }
     }
     
@@ -191,13 +206,15 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch type {
         case .CustomStr:
             self.selectedItem = dataSource[row]
-        case .DateYear:
+        case .DateYearMonths:
             if component == 0 {
                 self.selectYear = years[row].removeSomeStringUseSomeString(removeString: "年")
             }else {
                 self.selectMonth = months[row].removeSomeStringUseSomeString(removeString: "月")
             }
             self.selectedItem = selectYear + "-" + selectMonth
+        case .DateYears:
+            self.selectedItem = years[row].removeSomeStringUseSomeString(removeString: "年")
         }
         // 设置是否自动回调
         if isAutoSelect {
@@ -218,7 +235,7 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             pickerLabel = l
         }else {
             var labelWidth  = GConfig.ScreenW - 30
-            if type == .DateYear {
+            if type == .DateYearMonths {
                 labelWidth = (GConfig.ScreenW - 30)/2
             }
             let l = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: 40))
@@ -233,12 +250,14 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
         switch type {
         case .CustomStr:
             pickerLabel?.text = dataSource[row]
-        case .DateYear:
+        case .DateYearMonths:
             if component == 0 {
                 pickerLabel?.text = years[row]
             }else {
                 pickerLabel?.text = months[row]
             }
+        case .DateYears:
+            pickerLabel?.text = years[row]
         }
         return pickerLabel!
     }
