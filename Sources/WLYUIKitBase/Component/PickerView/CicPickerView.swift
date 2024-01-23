@@ -24,9 +24,9 @@ public struct CicPickerView {
         CicStringPickerView.showStringPickerWithTitle(title, dataSource: dataSource, defaultSelValue: defaultSelValue, isAutoSelect: isAutoSelect, resultBlock: resultBlock)
     }
     
-    public static func showStringPickerWithTitle(_ title: String, type: DatePickerStyle, defaultSelValue: String?, isAutoSelect: Bool, resultBlock: @escaping (_ selectValue: String) -> Void) {
+    public static func showStringPickerWithTitle(_ title: String, type: DatePickerStyle, isAutoSelect: Bool, resultBlock: @escaping (_ selectValue: String) -> Void) {
         
-        CicStringPickerView.showStringPickerWithTitle(title, type: type, defaultSelValue: defaultSelValue, isAutoSelect: isAutoSelect, resultBlock: resultBlock)
+        CicStringPickerView.showStringPickerWithTitle(title, type: type, isAutoSelect: isAutoSelect, resultBlock: resultBlock)
     }
     
     /**

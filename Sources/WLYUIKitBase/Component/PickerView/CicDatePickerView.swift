@@ -17,6 +17,7 @@ class CicDatePickerView: CicBasePickerView {
     
     let datePickerMode: UIDatePicker.Mode
     let title: String
+    let defaultSelValue: String?
     var minDateStr: String?
     var maxDateStr: String?
     private var resultBlock: (_ selectValue: String) -> Void
@@ -40,7 +41,13 @@ class CicDatePickerView: CicBasePickerView {
             _datePicker.maximumDate = maxDate
         }
         // 把当前时间赋值给 _datePicker
-        _datePicker.setDate(Date(), animated: true)
+        if let defaultSelValue, let date = toDateWithDateString(dateString: defaultSelValue) {
+            selectValue = defaultSelValue
+            _datePicker.setDate(date, animated: true)
+        }else{
+            selectValue = toStringWithDate(date: Date())
+            _datePicker.setDate(Date(), animated: true)
+        }
         
         if #available(iOS 13.4, *) {
             // 设置UIDatePicker的显示模式
@@ -57,14 +64,11 @@ class CicDatePickerView: CicBasePickerView {
     init(title: String, datePickerMode: UIDatePicker.Mode, defaultSelValue: String? = nil, minDateStr: String? = nil, maxDateStr: String? = nil, resultBlock: @escaping (_: String) -> Void, isAutoSelect: Bool) {
         self.datePickerMode = datePickerMode
         self.title = title
+        self.defaultSelValue = defaultSelValue
         self.minDateStr = minDateStr
         self.maxDateStr = maxDateStr
         self.resultBlock = resultBlock
         self.isAutoSelect = isAutoSelect
-        
-        if let defaultSelValue, !defaultSelValue.isEmpty {
-            self.selectValue = defaultSelValue
-        }
         super.init(frame: CGRect.zero)
         
         initUI()

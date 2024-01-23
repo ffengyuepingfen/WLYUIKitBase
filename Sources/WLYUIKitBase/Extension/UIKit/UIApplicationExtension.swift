@@ -168,6 +168,7 @@ public extension UIApplication {
     /// 判断是否拥有权限，目前支持 照相机、相册、麦克风、定位，提示：这里判断是这些权限有没有被用户手动关闭
     /// - Parameter permission: 权限的类型
     /// - Returns: 结果
+    @available(macCatalyst 14.0, *)
     static func isOpenPermission(_ permission: JKAppPermissionType) -> Bool {
         
         var result: Bool = true

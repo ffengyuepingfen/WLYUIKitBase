@@ -57,9 +57,9 @@ class CicStringPickerView: CicBasePickerView {
         strPickerView.showWithAnimation()
     }
     
-    static func showStringPickerWithTitle(_ title: String, type: DatePickerStyle, defaultSelValue: String?, isAutoSelect: Bool, resultBlock: @escaping (_ selectValue: String) -> Void) {
+    static func showStringPickerWithTitle(_ title: String, type: DatePickerStyle, isAutoSelect: Bool, resultBlock: @escaping (_ selectValue: String) -> Void) {
         
-        let strPickerView = CicStringPickerView(title: title, type: type, defaultSelValue: defaultSelValue, isAutoSelect: isAutoSelect, resultBlock: resultBlock)
+        let strPickerView = CicStringPickerView(title: title, type: type, isAutoSelect: isAutoSelect, resultBlock: resultBlock)
         strPickerView.showWithAnimation()
     }
     
@@ -68,23 +68,20 @@ class CicStringPickerView: CicBasePickerView {
     var selectYear: String = ""
     var selectMonth: String = ""
     
-    init(title: String, type: DatePickerStyle, defaultSelValue: String?, isAutoSelect: Bool, resultBlock: @escaping (_: String) -> Void, manager: CicPickerConfig = CicPickerConfig()) {
+    init(title: String, type: DatePickerStyle, isAutoSelect: Bool, resultBlock: @escaping (_: String) -> Void, manager: CicPickerConfig = CicPickerConfig()) {
         self.title = title
         self.type = type
         self.isAutoSelect = isAutoSelect
         self.resultBlock = resultBlock
         self.dataSource = []
-        if let defaultSelValue {
-            self.selectedItem = defaultSelValue
-        }else{
-            self.selectedItem = dataSource.first ?? ""
-        }
         
         if type == .DateYear {
             years = DatePickerManager.yearArray
             months = DatePickerManager.monthArray
         }
-        
+        self.selectYear = "\(Date().year)"
+        self.selectMonth = "\(Date().month)"
+        self.selectedItem = "\(Date().year)-\(Date().month)"
         super.init(frame: CGRect.zero)
         self.manager = manager
         loadData()
@@ -92,6 +89,7 @@ class CicStringPickerView: CicBasePickerView {
         
         let yearIndex = (Date().year - DatePickerManager.MINYEAR)
         let monthIndex = Date().month - 1
+        
         self.pickerView.selectRow(yearIndex, inComponent: 0, animated: true)
         self.pickerView.selectRow(monthIndex, inComponent: 1, animated: true)
     }
@@ -195,11 +193,11 @@ extension CicStringPickerView: UIPickerViewDataSource, UIPickerViewDelegate {
             self.selectedItem = dataSource[row]
         case .DateYear:
             if component == 0 {
-                self.selectYear = years[row]
+                self.selectYear = years[row].removeSomeStringUseSomeString(removeString: "年")
             }else {
-                self.selectMonth = months[row]
+                self.selectMonth = months[row].removeSomeStringUseSomeString(removeString: "月")
             }
-            self.selectedItem = selectYear + selectMonth
+            self.selectedItem = selectYear + "-" + selectMonth
         }
         // 设置是否自动回调
         if isAutoSelect {
