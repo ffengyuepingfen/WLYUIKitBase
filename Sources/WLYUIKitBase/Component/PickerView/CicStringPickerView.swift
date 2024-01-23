@@ -33,7 +33,7 @@ class CicStringPickerView: CicBasePickerView {
 
     private var type: DatePickerStyle = .CustomStr
     
-    var selectedItem: String
+    var selectedItem: String = "-"
 
     // 多列选中的项
 //    let selectedItems: [String]
@@ -75,6 +75,11 @@ class CicStringPickerView: CicBasePickerView {
         self.resultBlock = resultBlock
         self.dataSource = []
         
+        super.init(frame: CGRect.zero)
+        self.manager = manager
+        loadData()
+        initUI()
+        
         switch type {
         case .DateYearMonths:
             years = DatePickerManager.yearArray
@@ -82,25 +87,20 @@ class CicStringPickerView: CicBasePickerView {
             self.selectYear = "\(Date().year)"
             self.selectMonth = "\(Date().month)"
             self.selectedItem = "\(Date().year)-\(Date().month)"
+            let yearIndex = (Date().year - DatePickerManager.MINYEAR)
+            let monthIndex = Date().month - 1
+            pickerView.selectRow(yearIndex, inComponent: 0, animated: true)
+            pickerView.selectRow(monthIndex, inComponent: 1, animated: true)
         case .DateYears:
             years = DatePickerManager.yearArray
             self.selectYear = "\(Date().year)"
             self.selectedItem = "\(Date().year)"
+            let yearIndex = (Date().year - DatePickerManager.MINYEAR)
+            self.pickerView.selectRow(yearIndex, inComponent: 0, animated: true)
         default:
             self.selectedItem = ""
             break
         }
-        
-        super.init(frame: CGRect.zero)
-        self.manager = manager
-        loadData()
-        initUI()
-        
-        let yearIndex = (Date().year - DatePickerManager.MINYEAR)
-        let monthIndex = Date().month - 1
-        
-        self.pickerView.selectRow(yearIndex, inComponent: 0, animated: true)
-        self.pickerView.selectRow(monthIndex, inComponent: 1, animated: true)
     }
     
     init(title: String, dataSource: [String], defaultSelValue: String?, isAutoSelect: Bool, resultBlock: @escaping (_: String) -> Void, manager: CicPickerConfig = CicPickerConfig()) {
