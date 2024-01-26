@@ -10,18 +10,9 @@ import Foundation
 import UIKit
 import SafariServices
 
+let ResourceBundle = Bundle.module
 
-var ResourceBundle: Bundle {
-#if COCOAPODS
-    GCLog.info("This library is imported via CocoaPods")
-    let ResourceBundle = Bundle.i18n
-    return ResourceBundle
-#else
-    GCLog.info("This library is not imported via CocoaPods")
-    let ResourceBundle = Bundle.module
-    return ResourceBundle
-#endif
-}
+
 
 extension UIImage {
     convenience init?(named: String) {

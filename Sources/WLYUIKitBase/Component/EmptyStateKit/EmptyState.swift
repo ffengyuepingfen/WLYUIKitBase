@@ -123,7 +123,6 @@ public enum CictecState: CustomState {
     case noInternet
     case noIncome
     case inviteFriend
-    
     case noData
     case noInfo(actionName: String?, ti: String, des: String)
     
@@ -149,34 +148,34 @@ public enum CictecState: CustomState {
     
     public var title: String? {
         switch self {
-        case .noNotifications: return "No message notifications"
-        case .noBox: return "The box is empty"
-        case .noCart: return "The cart is empty"
-        case .noFavorites: return "线路收藏"
-        case .noLocation:  return "Where are you?"
-        case .noProfile: return "Not logged In"
-        case .noSearch: return "No results"
-        case .noTags: return "No collections"
-        case .noInternet: return "We’re Sorry"
+        case .noNotifications: return "无消息通知"
+        case .noBox: return "这里是空的"
+        case .noCart: return "这里是空的"
+        case .noFavorites: return "还没有喜欢的"
+        case .noLocation:  return "你在哪?"
+        case .noProfile: return "未登录"
+        case .noSearch: return "没有结果"
+        case .noTags: return "没有收藏"
+        case .noInternet: return "我们很抱歉"
         case .noIncome: return "No income"
         case .inviteFriend: return "Ask friend!"
             
-        case .noData: return "无数据"
+        case .noData: return "这里还没有数据"
         case .noInfo(_,let  ti, _) : return ti
         }
     }
     
     public var description: String? {
         switch self {
-        case .noNotifications: return "Sorry, you don't have any message. Please come back later!"
+        case .noNotifications: return "对不起，您还没有消息。请稍后再来!"
         case .noBox: return "You dont have any email!"
         case .noCart: return "Please, select almost one item to purchase"
-        case .noFavorites: return "快去线路列表收藏吧"
-        case .noLocation: return "We can't find your location"
-        case .noProfile: return "Please register or log in first"
-        case .noSearch: return "Please try another search item"
+        case .noFavorites: return "先选择你最喜欢的项目!"
+        case .noLocation: return "我们找不到你的位置"
+        case .noProfile: return "请先注册或登录"
+        case .noSearch: return "请尝试其他关键字搜索"
         case .noTags: return "Go to collect favorites products"
-        case .noInternet: return "Our staff is still working on the issue for better experience"
+        case .noInternet: return "我们的工作人员仍在努力解决这个问题，以获得更好的体验"
         case .noIncome: return "You have no payment so contact your client"
         case .inviteFriend: return "You could borrow money from your network"
             
@@ -187,17 +186,17 @@ public enum CictecState: CustomState {
     
     public var titleButton: String? {
         switch self {
-        case .noNotifications: return "Search again?"
-        case .noBox: return "Search again?"
-        case .noCart: return "Go back"
-        case .noFavorites: return "去收藏"
-        case .noLocation: return "Locate now!"
-        case .noProfile: return "Log in now!"
-        case .noSearch: return "Go back"
-        case .noTags: return "Go shopping"
-        case .noInternet: return "Try again?"
-        case .noIncome: return "Request payment"
-        case .inviteFriend: return "View contact"
+        case .noNotifications: return "加载数据?"
+        case .noBox: return "加载数据?"
+        case .noCart: return "返回"
+        case .noFavorites: return "返回"
+        case .noLocation: return nil
+        case .noProfile: return nil
+        case .noSearch: return "返回"
+        case .noTags: return nil
+        case .noInternet: return nil
+        case .noIncome: return nil
+        case .inviteFriend: return nil
             
         case .noData: return nil
         case .noInfo(let action, _, _) : return action
