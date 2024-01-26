@@ -123,8 +123,9 @@ public enum CictecState: CustomState {
     case noInternet
     case noIncome
     case inviteFriend
-    case noData(imageName: UIImage?,actionName: String?, ti: String, des: String)
-    case noInfo(imageName: String?,actionName: String?, ti: String, des: String)
+    case noData(imageName: UIImage? = nil,actionName: String? = nil, ti: String, des: String)
+    case noInfo(imageName: String? = nil,actionName: String? = nil, ti: String, des: String)
+    case noDataInfo(imageName: UIImage? = nil,actionName: String? = nil, ti: String, des: String)
     
     public var image: UIImage? {
         switch self {
@@ -140,8 +141,9 @@ public enum CictecState: CustomState {
         case .noIncome: return UIImage(named: "Income")
         case .inviteFriend: return UIImage(named: "Invite")
             
-        case .noData(let image,_,_, _): return image ?? UIImage(named: "Tags")
+        case .noData: return UIImage(named: "Tags")
         case .noInfo(let imageName,_,_, _): return UIImage(named: imageName ?? "Tags")
+        case .noDataInfo(let image,_,_, _): return image ?? UIImage(named: "Tags")
             
         }
     }
@@ -160,8 +162,10 @@ public enum CictecState: CustomState {
         case .noIncome: return "No income"
         case .inviteFriend: return "Ask friend!"
             
-        case .noData(_,_,let  ti, _) : return ti
-        case .noInfo(_,_,let  ti, _) : return ti
+        case .noData: return "这里是空的"
+        case .noInfo(_,_,let ti, _) : return ti
+        case .noDataInfo(_,_,let ti, _): return ti
+            
         }
     }
     
@@ -179,8 +183,9 @@ public enum CictecState: CustomState {
         case .noIncome: return "You have no payment so contact your client"
         case .inviteFriend: return "You could borrow money from your network"
             
-        case .noData(_,_,_, let des) : return des
+        case .noData: return "这里还没有数据，去别处看看吧"
         case .noInfo(_,_,_, let des) : return des
+        case .noDataInfo(_,_,_, let des) : return des
         }
     }
     
@@ -198,8 +203,9 @@ public enum CictecState: CustomState {
         case .noIncome: return nil
         case .inviteFriend: return nil
             
-        case .noData(_,let action, _, _) : return action
+        case .noData: return nil
         case .noInfo(_,let action, _, _) : return action
+        case .noDataInfo(_,let action, _, _) : return action
         }
     }
 }
