@@ -123,8 +123,8 @@ public enum CictecState: CustomState {
     case noInternet
     case noIncome
     case inviteFriend
-    case noData
-    case noInfo(actionName: String?, ti: String, des: String)
+    case noData(imageName: UIImage?,actionName: String?, ti: String, des: String)
+    case noInfo(imageName: String?,actionName: String?, ti: String, des: String)
     
     public var image: UIImage? {
         switch self {
@@ -140,8 +140,8 @@ public enum CictecState: CustomState {
         case .noIncome: return UIImage(named: "Income")
         case .inviteFriend: return UIImage(named: "Invite")
             
-        case .noData: return UIImage(named: "profile")
-        case .noInfo: return UIImage(named: "profile")
+        case .noData(let image,_,_, _): return image ?? UIImage(named: "Tags")
+        case .noInfo(let imageName,_,_, _): return UIImage(named: imageName ?? "Tags")
             
         }
     }
@@ -160,8 +160,8 @@ public enum CictecState: CustomState {
         case .noIncome: return "No income"
         case .inviteFriend: return "Ask friend!"
             
-        case .noData: return "这里还没有数据"
-        case .noInfo(_,let  ti, _) : return ti
+        case .noData(_,_,let  ti, _) : return ti
+        case .noInfo(_,_,let  ti, _) : return ti
         }
     }
     
@@ -179,8 +179,8 @@ public enum CictecState: CustomState {
         case .noIncome: return "You have no payment so contact your client"
         case .inviteFriend: return "You could borrow money from your network"
             
-        case .noData: return "还没有数据，去别处看看吧"
-        case .noInfo(_,_, let des) : return des
+        case .noData(_,_,_, let des) : return des
+        case .noInfo(_,_,_, let des) : return des
         }
     }
     
@@ -198,8 +198,8 @@ public enum CictecState: CustomState {
         case .noIncome: return nil
         case .inviteFriend: return nil
             
-        case .noData: return nil
-        case .noInfo(let action, _, _) : return action
+        case .noData(_,let action, _, _) : return action
+        case .noInfo(_,let action, _, _) : return action
         }
     }
 }
