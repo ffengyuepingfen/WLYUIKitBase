@@ -123,7 +123,7 @@ public enum CictecState: CustomState {
     case noInternet
     case noIncome
     case inviteFriend
-    case noData(imageName: UIImage? = nil,actionName: String? = nil, ti: String, des: String)
+    case noData
     case noInfo(imageName: String? = nil,actionName: String? = nil, ti: String, des: String)
     case noDataInfo(imageName: UIImage? = nil,actionName: String? = nil, ti: String, des: String)
     
