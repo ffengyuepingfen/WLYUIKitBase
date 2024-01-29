@@ -176,18 +176,6 @@ extension UIColor {
 
 extension UIColor {
     
-    /// 强调色
-    public static func AccentColor() -> UIColor {
-        UIColor { theme in
-            switch theme.userInterfaceStyle {
-            case .dark:
-                return UIColor.hex(hexString: "#E94D79")
-            default:
-                return UIColor.hex(hexString: "#F55385")
-            }
-        }
-    }
-    
     /// 主文本色
     public static func PrimaryText() -> UIColor {
         UIColor { theme in
