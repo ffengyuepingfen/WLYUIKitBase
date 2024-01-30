@@ -112,55 +112,43 @@ extension EmptyState {
 
 public enum CictecState: CustomState {
     
-    case noNotifications
+    case noMessages
     case noBox
     case noCart
     case noFavorites
     case noLocation
     case noProfile
     case noSearch
-    case noTags
-    case noInternet
-    case noIncome
-    case inviteFriend
     case noData
     case noInfo(imageName: String? = nil,actionName: String? = nil, ti: String, des: String)
     case noDataInfo(imageName: UIImage? = nil,actionName: String? = nil, ti: String, des: String)
     
     public var image: UIImage? {
         switch self {
-        case .noNotifications: return UIImage(named: "Messages")
-        case .noBox: return UIImage(named: "Box")
-        case .noCart: return UIImage(named: "Cart")
-        case .noFavorites: return UIImage(named: "Favorites")
-        case .noLocation: return UIImage(named: "Location")
-        case .noProfile: return UIImage(named: "Profile")
-        case .noSearch: return UIImage(named: "Search")
-        case .noTags: return UIImage(named: "Tags")
-        case .noInternet: return UIImage(named: "Internet")
-        case .noIncome: return UIImage(named: "Income")
-        case .inviteFriend: return UIImage(named: "Invite")
+        case .noMessages: return UIImage(named: "messages")
+        case .noBox: return UIImage(named: "box")
+        case .noCart: return UIImage(named: "cart")
+        case .noFavorites: return UIImage(named: "favorites")
+        case .noLocation: return UIImage(named: "location")
+        case .noProfile: return UIImage(named: "profile")
+        case .noSearch: return UIImage(named: "search")
             
-        case .noData: return UIImage(named: "Tags")
-        case .noInfo(let imageName,_,_, _): return UIImage(named: imageName ?? "Tags")
-        case .noDataInfo(let image,_,_, _): return image ?? UIImage(named: "Tags")
+        case .noData: return UIImage(named: "tags")
+        case .noInfo(let imageName,_,_, _): return UIImage(named: imageName ?? "tags")
+        case .noDataInfo(let image,_,_, _): return image ?? UIImage(named: "tags")
             
         }
     }
     
     public var title: String? {
         switch self {
-        case .noNotifications: return "无消息通知"
+        case .noMessages: return "无消息通知"
         case .noBox: return "这里是空的"
         case .noCart: return "这里是空的"
         case .noFavorites: return "还没有喜欢的"
         case .noLocation:  return "你在哪?"
         case .noProfile: return "未登录"
         case .noSearch: return "没有结果"
-        case .noTags: return "没有收藏"
-        case .noInternet: return "我们很抱歉"
-        case .noIncome: return "No income"
-        case .inviteFriend: return "Ask friend!"
             
         case .noData: return "这里是空的"
         case .noInfo(_,_,let ti, _) : return ti
@@ -171,17 +159,13 @@ public enum CictecState: CustomState {
     
     public var description: String? {
         switch self {
-        case .noNotifications: return "对不起，您还没有消息。请稍后再来!"
+        case .noMessages: return "对不起，您还没有消息。请稍后再来!"
         case .noBox: return "You dont have any email!"
         case .noCart: return "Please, select almost one item to purchase"
         case .noFavorites: return "先选择你最喜欢的项目!"
         case .noLocation: return "我们找不到你的位置"
         case .noProfile: return "请先注册或登录"
         case .noSearch: return "请尝试其他关键字搜索"
-        case .noTags: return "Go to collect favorites products"
-        case .noInternet: return "我们的工作人员仍在努力解决这个问题，以获得更好的体验"
-        case .noIncome: return "You have no payment so contact your client"
-        case .inviteFriend: return "You could borrow money from your network"
             
         case .noData: return "这里还没有数据，去别处看看吧"
         case .noInfo(_,_,_, let des) : return des
@@ -191,17 +175,13 @@ public enum CictecState: CustomState {
     
     public var titleButton: String? {
         switch self {
-        case .noNotifications: return "加载数据?"
+        case .noMessages: return "加载数据?"
         case .noBox: return "加载数据?"
         case .noCart: return "返回"
         case .noFavorites: return "返回"
         case .noLocation: return nil
         case .noProfile: return nil
         case .noSearch: return "返回"
-        case .noTags: return nil
-        case .noInternet: return nil
-        case .noIncome: return nil
-        case .inviteFriend: return nil
             
         case .noData: return nil
         case .noInfo(_,let action, _, _) : return action
