@@ -18,7 +18,7 @@ extension UITableView {
         cells.forEach { c in
             tt.register(cellClass: c)
         }
-        tt.backgroundColor = UIColor.backGroundColor()
+        tt.backgroundColor = UIColor.PrimaryBackground()
         tt.layer.cornerRadius = 6.0
         tt.rowHeight = UITableView.automaticDimension
         tt.estimatedRowHeight = estimatedRowHeight
