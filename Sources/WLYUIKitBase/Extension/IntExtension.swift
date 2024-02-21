@@ -11,27 +11,27 @@ public extension Int {
     
     // MARK: 1.1、转 Double
     /// 转 Double
-    var intToDouble: Double { return Double(self) }
+//    var intToDouble: Double { return Double(self) }
 
     // MARK: 1.2、转 Float
     /// 转 Float
-    var intToFloat: Float { return Float(self) }
+//    var intToFloat: Float { return Float(self) }
     
     // MARK: 1.3、转 Int64
     /// 转 Int64
-    var intToInt64: Int64 { return Int64(self) }
+//    var intToInt64: Int64 { return Int64(self) }
 
     // MARK: 1.4、转 CGFloat
     /// 转 CGFloat
-    var intToCGFloat: CGFloat { return CGFloat(self) }
+//    var intToCGFloat: CGFloat { return CGFloat(self) }
 
     // MARK: 1.5、转 String
     /// 转 String
-    var intToString: String { return String(self) }
+//    var intToString: String { return String(self) }
 
     // MARK: 1.6、转 UInt
     /// 转 UInt
-    var intToUInt: UInt { return UInt(self) }
+//    var intToUInt: UInt { return UInt(self) }
 
     // MARK: 1.7、转 CountableRange(可数的开区间)
     /// 转 CountableRange(可数的开区间)

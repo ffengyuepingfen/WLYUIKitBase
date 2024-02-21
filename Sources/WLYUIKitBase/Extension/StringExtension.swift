@@ -922,9 +922,9 @@ public extension ExpressibleByStringLiteral {
     
     // MARK: 4.9、字符串转 NSNumber
     /// 字符串转 NSNumber
-    var toNumber: NSNumber? {
-        return self.toDouble()?.number
-    }
+//    var toNumber: NSNumber? {
+//        return self.toDouble()?.number
+//    }
 }
 
 // MARK: - 五、字符串UI的处理

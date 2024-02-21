@@ -84,7 +84,7 @@ extension UIDevice {
      */
     /// 屏蔽API时候的的 API 版本号
     static public func versionCode() -> String {
-        return (Bundle.infoDic!["CFBundleVersion"] as? String) ?? "6"
+        return (Bundle.infoDic!["CFBundleVersion"] as? String) ?? "1"
     }
 
     /// 获取iPhone名称

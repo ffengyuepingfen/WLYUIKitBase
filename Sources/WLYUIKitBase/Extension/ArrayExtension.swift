@@ -119,12 +119,12 @@ public extension Array where Element : Equatable {
     /// 获取元素首次出现的位置
     /// - Parameter item: 元素
     /// - Returns: 索引值
-    func firstIndex(_ item: Element) -> Int? {
-        for (index, value) in self.enumerated() where value == item {
-            return index
-        }
-        return nil
-    }
+//    func firstIndex(_ item: Element) -> Int? {
+//        for (index, value) in self.enumerated() where value == item {
+//            return index
+//        }
+//        return nil
+//    }
     
     // MARK: 2.3、获取元素最后出现的位置
     /// 获取元素最后出现的位置
