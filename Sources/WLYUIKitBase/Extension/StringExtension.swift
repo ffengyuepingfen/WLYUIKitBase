@@ -93,7 +93,24 @@ extension String {
         }
         let str = "\(hourStr):\(minStr):\(secondStr)"
         return str
-
+    }
+    
+    /// 把秒格式化时间
+    /// - Parameter e: 是否字母
+    /// - Returns: 返回格式化的时间
+    public func toFormatTime(_ e: Bool = false) -> String {
+        //转换为时间
+        let timeInterval: Int = self.toInt() ?? 0
+        //格式话输出
+        if timeInterval <= 60 {
+            return "\(timeInterval)" + (e ? "s" : "秒")
+        }
+        
+        if timeInterval > 60, timeInterval < 3600 {
+            return "\(timeInterval/60)" + (e ? "m" : "分钟")
+        }
+        
+        return "\(timeInterval/3600)" + (e ? "h" : "小时")
     }
 
     /// 获取当前日期是星期几
