@@ -110,7 +110,7 @@ extension String {
             return "\(timeInterval/60)" + (e ? "m" : "分钟")
         }
         
-        return "\(timeInterval/3600)" + (e ? "h" : "小时")
+        return "\(timeInterval/3600)" + (e ? "h" : "小时") + "\((timeInterval%3600)/60)" + (e ? "m" : "分钟")
     }
 
     /// 获取当前日期是星期几
