@@ -86,7 +86,7 @@ public extension UIButton {
         switch lineType {
         case let .color(color):
             color.setStroke()
-            path.lineWidth = jk_kPixel
+            path.lineWidth = 1.0
             path.stroke()
         default:
             break

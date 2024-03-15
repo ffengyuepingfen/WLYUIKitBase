@@ -27,7 +27,7 @@ public extension UINavigationBar {
     /// - Parameter backgroundColor: StateBar的颜色
     func changeStateBarBackgroundColor(_ backgroundColor: UIColor) {
         if self.customView == nil {
-            self.customView = UIView(frame: CGRect(x: 0, y: -jk_kStatusBarFrameH, width: UIScreen.width, height: jk_kStatusBarFrameH))
+            self.customView = UIView(frame: CGRect(x: 0, y: -GConfig.TopSafeH, width: UIScreen.width, height: GConfig.TopSafeH))
             self.customView!.backgroundColor = UIColor.clear
             self.addSubview(self.customView!)
         }
