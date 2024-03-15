@@ -4,33 +4,16 @@
 //
 //  Created by Laowang on 2023/5/16.
 //
-
-import UIKit
 import Foundation
-import CoreFoundation
-import WebKit
+#if os(iOS)
+import UIKit
+//import CoreFoundation
+//import WebKit
 
 public enum JKDashLineDirection: Int {
     case vertical = 0
     case horizontal = 1
 }
-
-// MARK: - 一、机型的判断
-/*
- iphone硬件型号
- iPhoneX的分辨率：      2436 * 1125 || pt: 812 * 375
- iPhoneXR的分辨率：     1792 * 828 || pt: 896 * 414
- iPhoneXS的分辨率：     2436 * 1125 || pt: 812 * 375
- iPhoneXS Max的分辨率： 2688 * 1242 || pt: 896 * 414
- */
-let isIPhone4 = (CGSize(width: 640, height: 960).equalTo(UIScreen.main.currentMode!.size))
-let isIPhone5 = (CGSize(width: 640, height: 1136).equalTo(UIScreen.main.currentMode!.size))
-let isIPhone6 = (CGSize(width: 750, height: 1334).equalTo(UIScreen.main.currentMode!.size))
-let isIPhone6P = (CGSize(width: 1242, height: 2208).equalTo(UIScreen.main.currentMode!.size))
-let isIPhoneX = UIScreen.main.bounds.height >= 812
-let isIPhoneXR = (CGSize(width: 828, height: 1792).equalTo(UIScreen.main.currentMode!.size))
-let isIPhoneXS = (CGSize(width: 1125, height: 2436).equalTo(UIScreen.main.currentMode!.size))
-let isIiPhoneXSMax = (CGSize(width: 1242, height: 2688).equalTo(UIScreen.main.currentMode!.size))
 
 // MARK: 1.1、设备型号
 /// 设备型号
@@ -47,124 +30,6 @@ public func jk_deviceModel() -> String {
     return deviceModelName
 }
 
-// MARK: 1.2、是不是 iPhone X
-/// 是不是 iPhone X
-/// - Returns: bool
-public func jk_isIphoneX() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 812
-}
-
-// MARK: 1.3、是不是 iPhone XS
-/// 是不是 iPhone XS
-/// - Returns: description
-public func jk_isXs() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 812
-}
-
-// MARK: 1.4、是不是 iPhone XR
-/// 是不是 iPhone XR
-/// - Returns: description
-public func jk_isXR() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 896 && jk_kScreenW == 414
-}
-
-// MARK: 1.5、是不是 iPhone XsMax
-/// 是不是 iPhone XsMax
-/// - Returns: description
-public func jk_isXsMax() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 896 && jk_kScreenW == 414
-}
-
-// MARK: 1.6、是不是 iPhone
-/// 判断是不是 iPhone
-/// - Returns: bool
-public func jk_isIphone() -> Bool {
-    return UIDevice.current.userInterfaceIdiom == .phone
-}
-
-// MARK: 1.7、判断是否是 pad
-/// 判断是否是 pad
-/// - Returns: bool
-public func jk_isPadDevice() -> Bool {
-    return UIDevice.current.userInterfaceIdiom == .pad
-}
-
-// MARK: 1.8、判断是不是 4 4s
-/// 4 4s
-/// - Returns: description
-public func jk_is4OrLess() -> Bool {
-    return jk_isIphone() && jk_kScreenH < 568
-}
-
-// MARK: 1.9、判断是不是 5 5c 5s
-/// 判断是不是 5 5c 5s
-/// - Returns: description
-public func jk_is5() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 568
-}
-
-// MARK: 1.10、判断是不是 6 6s 7 8
-/// 判断是不是 6 6s 7 8
-/// - Returns: description
-public func jk_is678() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 667
-}
-
-// MARK: 1.11、判断是不是 6p 7p 8p
-/// 判断是不是 6p 7p 8p
-/// - Returns: description
-public func jk_is678P() -> Bool {
-    return jk_isIphone() && jk_kScreenH == 736
-}
-
-// MARK: 1.12、当前设备是不是模拟器
-/// 当前设备是不是模拟器
-/// - Returns: result
-public func jk_isSimulator() -> Bool {
-    return UIDevice.isSimulator()
-}
-
-// MARK: - 二、屏幕尺寸常用的常量
-// MARK: 2.1、屏幕的宽
-/// 屏幕的宽
-public let jk_kScreenW: CGFloat = UIScreen.main.bounds.width
-// MARK: 2.2、屏幕的高
-/// 屏幕的高
-public let jk_kScreenH: CGFloat = UIScreen.main.bounds.height
-// MARK: 2.3、获取statusBar的高度
-/// 获取statusBar的高度
-public var jk_kStatusBarFrameH: CGFloat {
-    guard isIPhoneX else {
-        return 20
-    }
-    // 防止界面没有出来获取为0的情况
-    return UIApplication.shared.statusBarFrame.height > 0 ? UIApplication.shared.statusBarFrame.height : 44
-}
-// MARK: 2.4、获取导航栏的高度
-/// 获取导航栏的高度
-public let jk_kNavFrameH: CGFloat = 44 + jk_kStatusBarFrameH
-    
-// MARK: 2.5、屏幕底部Tabbar高度
-/// 屏幕底部Tabbar高度
-public var jk_kTabbarFrameH: CGFloat { return isIPhoneX ? 83 : 49 }
-// MARK: 2.6、屏幕底部刘海高度
-/// 屏幕底部刘海高度
-public var jk_kTabbarBottom: CGFloat { return isIPhoneX ? 34 : 0 }
-// MARK: 2.7、屏幕比例
-/// 屏幕比例
-public let jk_kPixel = 1.0 / UIScreen.main.scale
-// MARK: 2.8、身份证宽高比
-/// 身份证宽高比
-public let jk_kRatioIDCard: CGFloat = 0.63
-// MARK: 2.9、适配比例
-/// 适配比例
-public let jk_scaleIphone = jk_kScreenW / CGFloat(375.0)
-
-// MARK: - 屏幕16:9比例系数下的宽高
-// 宽
-public let jk_kScreenW16_9: CGFloat = jk_kScreenW * 9.0 / 16.0
-// 高
-public let jk_kScreenH16_9: CGFloat = jk_kScreenH * 16.0 / 9.0
 
 // MARK: - 三、UIView 有关 Frame 的扩展
 public extension UIView {
@@ -708,110 +573,6 @@ public extension UIView {
     }
 }
 
-// MARK: - 六、自定义链式编程
-public extension UIView {
-    // MARK: 6.1、设置 tag 值
-    /// 设置 tag 值
-    /// - Parameter tag: 值
-    /// - Returns: 返回自身
-    @discardableResult
-    func tag(_ tag: Int) -> Self {
-        self.tag = tag
-        return self
-    }
-    
-    // MARK: 6.2、设置圆角
-    /// 设置圆角
-    /// - Parameter cornerRadius: 圆角
-    /// - Returns: 返回自身
-    @discardableResult
-    func corner(_ cornerRadius: CGFloat) -> Self {
-        layer.cornerRadius = cornerRadius
-        layer.masksToBounds = true
-        return self
-    }
-    
-    // MARK: 6.3、图片的模式
-    /// 图片的模式
-    /// - Parameter mode: 模式
-    /// - Returns: 返回图片的模式
-    @discardableResult
-    func contentMode(_ mode: UIView.ContentMode) -> Self {
-        contentMode = mode
-        return self
-    }
-    
-    // MARK: 6.4、设置背景色
-    /// 设置背景色
-    /// - Parameter color: 颜色
-    /// - Returns: 返回自身
-    @discardableResult
-    func backgroundColor(_ color: UIColor) -> Self {
-        backgroundColor = color
-        return self
-    }
-    
-    // MARK: 6.5、设置十六进制颜色
-    /// 设置十六进制颜色
-    /// - Parameter hex: 十六进制颜色
-    /// - Returns: 返回自身
-    @discardableResult
-    func backgroundColor(_ hex: String) -> Self {
-        backgroundColor = UIColor.hexStringColor(hexString: hex)
-        return self
-    }
-    
-    // MARK: 6.6、设置 frame
-    /// 设置 frame
-    /// - Parameter frame: frame
-    /// - Returns: 返回自身
-    @discardableResult
-    func frame(_ frame: CGRect) -> Self {
-        self.frame = frame
-        return self
-    }
-    
-    // MARK: 6.8、设置是否支持触摸
-    /// 设置是否支持触摸
-    /// - Parameter isUserInteractionEnabled: 是否支持触摸
-    /// - Returns: 返回自身
-    @discardableResult
-    func isUserInteractionEnabled(_ isUserInteractionEnabled: Bool) -> Self {
-        self.isUserInteractionEnabled = isUserInteractionEnabled
-        return self
-    }
-    
-    // MARK: 6.9、设置是否隐藏
-    /// 设置是否隐藏
-    /// - Parameter isHidden: 是否隐藏
-    /// - Returns: 返回自身
-    @discardableResult
-    func isHidden(_ isHidden: Bool) -> Self {
-        self.isHidden = isHidden
-        return self
-    }
-    
-    // MARK: 6.10、设置透明度
-    /// 设置透明度
-    /// - Parameter alpha: 透明度
-    /// - Returns: 返回自身
-    @discardableResult
-    func alpha(_ alpha: CGFloat) -> Self {
-        self.alpha = alpha
-        return self
-    }
-    
-    // MARK: 6.11、设置tintColor
-    /// 设置tintColor
-    /// - Parameter tintColor: tintColor description
-    /// - Returns: 返回自身
-    @discardableResult
-    func tintColor(_ tintColor: UIColor) -> Self {
-        self.tintColor = tintColor
-        return self
-    }
-}
-
 // MARK: - 七、其他的方法
 // 抖动方向枚举
 public enum JKShakeDirection: Int {
@@ -871,22 +632,6 @@ public extension UIView {
         }
     }
     
-    // MARK: 7.3、将 View 转换成图片
-    /// 将 View 转换成图片
-    /// - Returns: 图片
-    func toImage() -> UIImage? {
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, scale)
-        guard let context = UIGraphicsGetCurrentContext() else {
-            UIGraphicsEndImageContext()
-            return nil
-        }
-        self.layer.render(in: context)
-        let viewImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return viewImage
-    }
-    
     // MARK: 7.4、添加点击事件
     /// 添加点击事件
     /// - Parameters:
@@ -940,17 +685,17 @@ public extension UIView {
     // MARK: 7.7、是否包含WKWebView
     /// 是否包含WKWebView
     /// - Returns: 结果
-    func isContainsWKWebView() -> Bool {
-        if self.isKind(of: WKWebView.self) {
-            return true
-        }
-        for subView in self.subviews {
-            if (subView.isContainsWKWebView()) {
-                return true
-            }
-        }
-        return false
-    }
+//    func isContainsWKWebView() -> Bool {
+//        if self.isKind(of: WKWebView.self) {
+//            return true
+//        }
+//        for subView in self.subviews {
+//            if (subView.isContainsWKWebView()) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
 }
 
 // MARK: - private method
@@ -965,73 +710,73 @@ extension UIView {
 }
 
 // MARK: 八、视图调试
-public extension UIView {
-    
-    // MARK: 8.1、图层调试(兼容OC)
-    /// 图层调试(兼容OC)
-    /// - Parameters:
-    ///   - borderWidth: 视图的边框宽度
-    ///   - borderColor: 视图的边框颜色
-    ///   - backgroundColor: 视图的背景色
-    func getViewLayer(borderWidth: CGFloat = 0.5, borderColor: UIColor = .randomColor(), backgroundColor: UIColor = .randomColor()) {
-        #if DEBUG
-        let subviews = self.subviews
-        if subviews.count == 0 {
-            return
-        }
-        for subview in subviews {
-            subview.layer.borderWidth = borderWidth
-            subview.layer.borderColor = borderColor.cgColor
-            subview.backgroundColor = backgroundColor
-            subview.getViewLayer(borderWidth: borderWidth, borderColor: borderColor, backgroundColor: backgroundColor)
-        }
-        #endif
-    }
-    
-    // MARK: 8.2、寻找某个类型子视图
-    /// 寻找某个类型子视图
-    /// - Parameters:
-    ///   - type: 子视图类型
-    ///   - resursion: 是否递归查找
-    /// - Returns: 返回找到的子视图
-    @discardableResult
-    func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
-        for e in self.subviews.enumerated() {
-            if e.element.isKind(of: type) {
-                return e.element
-            }
-        }
-        // 是否递归查找
-        guard resursion == true else {
-            return nil
-        }
-        for e in self.subviews.enumerated() {
-            let tmpView = e.element.findSubview(type: type, resursion: resursion)
-            if tmpView != nil {
-                return tmpView
-            }
-        }
-        return nil
-    }
-    
-    // MARK: 8.3、移除所有的子视图
-    /// 移除所有的子视图
-    func removeAllSubViews() {
-        for subView in self.subviews {
-            subView.removeFromSuperview()
-        }
-    }
-    
-    // MARK: 8.4、移除layer
-    /// 移除layer
-    /// - Returns: 返回自身
-    @discardableResult
-    func removeLayer() -> Self {
-        self.layer.mask = nil
-        self.layer.borderWidth = 0
-        return self
-    }
-}
+//public extension UIView {
+//    
+//    // MARK: 8.1、图层调试(兼容OC)
+//    /// 图层调试(兼容OC)
+//    /// - Parameters:
+//    ///   - borderWidth: 视图的边框宽度
+//    ///   - borderColor: 视图的边框颜色
+//    ///   - backgroundColor: 视图的背景色
+//    func getViewLayer(borderWidth: CGFloat = 0.5, borderColor: UIColor = .randomColor(), backgroundColor: UIColor = .randomColor()) {
+//        #if DEBUG
+//        let subviews = self.subviews
+//        if subviews.count == 0 {
+//            return
+//        }
+//        for subview in subviews {
+//            subview.layer.borderWidth = borderWidth
+//            subview.layer.borderColor = borderColor.cgColor
+//            subview.backgroundColor = backgroundColor
+//            subview.getViewLayer(borderWidth: borderWidth, borderColor: borderColor, backgroundColor: backgroundColor)
+//        }
+//        #endif
+//    }
+//    
+//    // MARK: 8.2、寻找某个类型子视图
+//    /// 寻找某个类型子视图
+//    /// - Parameters:
+//    ///   - type: 子视图类型
+//    ///   - resursion: 是否递归查找
+//    /// - Returns: 返回找到的子视图
+//    @discardableResult
+//    func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
+//        for e in self.subviews.enumerated() {
+//            if e.element.isKind(of: type) {
+//                return e.element
+//            }
+//        }
+//        // 是否递归查找
+//        guard resursion == true else {
+//            return nil
+//        }
+//        for e in self.subviews.enumerated() {
+//            let tmpView = e.element.findSubview(type: type, resursion: resursion)
+//            if tmpView != nil {
+//                return tmpView
+//            }
+//        }
+//        return nil
+//    }
+//    
+//    // MARK: 8.3、移除所有的子视图
+//    /// 移除所有的子视图
+//    func removeAllSubViews() {
+//        for subView in self.subviews {
+//            subView.removeFromSuperview()
+//        }
+//    }
+//    
+//    // MARK: 8.4、移除layer
+//    /// 移除layer
+//    /// - Returns: 返回自身
+//    @discardableResult
+//    func removeLayer() -> Self {
+//        self.layer.mask = nil
+//        self.layer.borderWidth = 0
+//        return self
+//    }
+//}
 
 // MARK: 九、手势的扩展
 public extension UIView {
@@ -1457,77 +1202,77 @@ extension UIView {
     }
 }
 
-public protocol LayoutGuideProvider {
-    var topAnchor: NSLayoutYAxisAnchor { get }
-    var bottomAnchor: NSLayoutYAxisAnchor { get }
-}
-extension UILayoutGuide: LayoutGuideProvider {}
+//public protocol LayoutGuideProvider {
+//    var topAnchor: NSLayoutYAxisAnchor { get }
+//    var bottomAnchor: NSLayoutYAxisAnchor { get }
+//}
+//extension UILayoutGuide: LayoutGuideProvider {}
+//
+//public class CustomLayoutGuide: LayoutGuideProvider {
+//    public let topAnchor: NSLayoutYAxisAnchor
+//    public let bottomAnchor: NSLayoutYAxisAnchor
+//    init(topAnchor: NSLayoutYAxisAnchor, bottomAnchor: NSLayoutYAxisAnchor) {
+//        self.topAnchor = topAnchor
+//        self.bottomAnchor = bottomAnchor
+//    }
+//}
+//
+//@available(*, deprecated, message: "use gender instand of it")
+//extension UIViewController {
+//    @objc public var layoutInsets: UIEdgeInsets {
+//        if #available(iOS 11.0, *) {
+//            return view.safeAreaInsets
+//        } else {
+//            return UIEdgeInsets(top: topLayoutGuide.length,
+//                                left: 0.0,
+//                                bottom: bottomLayoutGuide.length,
+//                                right: 0.0)
+//        }
+//    }
+//
+//    public var layoutGuide: LayoutGuideProvider {
+//        if #available(iOS 11.0, *) {
+//            return view!.safeAreaLayoutGuide
+//        } else {
+//            return CustomLayoutGuide(topAnchor: topLayoutGuide.bottomAnchor,
+//                                     bottomAnchor: bottomLayoutGuide.topAnchor)
+//        }
+//    }
+//}
 
-public class CustomLayoutGuide: LayoutGuideProvider {
-    public let topAnchor: NSLayoutYAxisAnchor
-    public let bottomAnchor: NSLayoutYAxisAnchor
-    init(topAnchor: NSLayoutYAxisAnchor, bottomAnchor: NSLayoutYAxisAnchor) {
-        self.topAnchor = topAnchor
-        self.bottomAnchor = bottomAnchor
-    }
-}
+//protocol SideLayoutGuideProvider {
+//    var leftAnchor: NSLayoutXAxisAnchor { get }
+//    var rightAnchor: NSLayoutXAxisAnchor { get }
+//}
+//
+//extension UIView: SideLayoutGuideProvider {}
+//extension UILayoutGuide: SideLayoutGuideProvider {}
+//
+//// The reason why UIView has no extensions of safe area insets and top/bottom guides
+//// is for iOS10 compat.
+//extension UIView {
+//    var sideLayoutGuide: SideLayoutGuideProvider {
+//        if #available(iOS 11.0, *) {
+//            return safeAreaLayoutGuide
+//        } else {
+//            return self
+//        }
+//    }
+//
+//    var presentationFrame: CGRect {
+//        return layer.presentation()?.frame ?? frame
+//    }
+//}
 
-@available(*, deprecated, message: "use gender instand of it")
-extension UIViewController {
-    @objc public var layoutInsets: UIEdgeInsets {
-        if #available(iOS 11.0, *) {
-            return view.safeAreaInsets
-        } else {
-            return UIEdgeInsets(top: topLayoutGuide.length,
-                                left: 0.0,
-                                bottom: bottomLayoutGuide.length,
-                                right: 0.0)
-        }
-    }
-
-    public var layoutGuide: LayoutGuideProvider {
-        if #available(iOS 11.0, *) {
-            return view!.safeAreaLayoutGuide
-        } else {
-            return CustomLayoutGuide(topAnchor: topLayoutGuide.bottomAnchor,
-                                     bottomAnchor: bottomLayoutGuide.topAnchor)
-        }
-    }
-}
-
-protocol SideLayoutGuideProvider {
-    var leftAnchor: NSLayoutXAxisAnchor { get }
-    var rightAnchor: NSLayoutXAxisAnchor { get }
-}
-
-extension UIView: SideLayoutGuideProvider {}
-extension UILayoutGuide: SideLayoutGuideProvider {}
-
-// The reason why UIView has no extensions of safe area insets and top/bottom guides
-// is for iOS10 compat.
 extension UIView {
-    var sideLayoutGuide: SideLayoutGuideProvider {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide
-        } else {
-            return self
-        }
-    }
-
-    var presentationFrame: CGRect {
-        return layer.presentation()?.frame ?? frame
-    }
-}
-
-extension UIView {
-    func disableAutoLayout() {
-        let frame = self.frame
-        translatesAutoresizingMaskIntoConstraints = true
-        self.frame = frame
-    }
-    func enableAutoLayout() {
-        translatesAutoresizingMaskIntoConstraints = false
-    }
+//    func disableAutoLayout() {
+//        let frame = self.frame
+//        translatesAutoresizingMaskIntoConstraints = true
+//        self.frame = frame
+//    }
+//    func enableAutoLayout() {
+//        translatesAutoresizingMaskIntoConstraints = false
+//    }
 
     static func performWithLinear(startTime: Double = 0.0, relativeDuration: Double = 1.0, _ animations: @escaping (() -> Void)) {
         UIView.animateKeyframes(withDuration: 0.0, delay: 0.0, options: [.calculationModeCubic], animations: {
@@ -1549,26 +1294,26 @@ extension UIView {
 
 extension UIView {
     
-    static func activate(constraints: [NSLayoutConstraint]) {
-        constraints.forEach { ($0.firstItem as? UIView)?.translatesAutoresizingMaskIntoConstraints = false }
-        NSLayoutConstraint.activate(constraints)
-    }
+//    static func activate(constraints: [NSLayoutConstraint]) {
+//        constraints.forEach { ($0.firstItem as? UIView)?.translatesAutoresizingMaskIntoConstraints = false }
+//        NSLayoutConstraint.activate(constraints)
+//    }
+//    
+//    public func pin(to view: UIView, insets: UIEdgeInsets = .zero) {
+//        UIView.activate(constraints: [
+//            topAnchor.constraint(equalTo: view.topAnchor, constant: insets.top),
+//            leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left),
+//            bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -insets.bottom),
+//            rightAnchor.constraint(equalTo: view.rightAnchor, constant: -insets.right)
+//        ])
+//    }
     
-    public func pin(to view: UIView, insets: UIEdgeInsets = .zero) {
-        UIView.activate(constraints: [
-            topAnchor.constraint(equalTo: view.topAnchor, constant: insets.top),
-            leftAnchor.constraint(equalTo: view.leftAnchor, constant: insets.left),
-            bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -insets.bottom),
-            rightAnchor.constraint(equalTo: view.rightAnchor, constant: -insets.right)
-        ])
-    }
-    
-    func center(in view: UIView, offset: UIOffset = .zero) {
-        UIView.activate(constraints: [
-            centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: offset.horizontal),
-            centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: offset.vertical)
-        ])
-    }
+//    func center(in view: UIView, offset: UIOffset = .zero) {
+//        UIView.activate(constraints: [
+//            centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: offset.horizontal),
+//            centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: offset.vertical)
+//        ])
+//    }
     
     
     /// 🌿🌿🌿🌿🌿带约束的添加到父视图上
@@ -1586,3 +1331,41 @@ extension UIView {
     }
     
 }
+
+
+
+public extension UIView {
+    
+    // MARK: 7.3、将 View 转换成图片
+    /// 将 View 转换成图片
+    /// - Returns: 图片
+    func toImage() -> UIImage? {
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        self.layer.render(in: context)
+        let viewImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return viewImage
+    }
+}
+
+#elseif os(macOS)
+import Cocoa
+
+public extension NSView {
+    public func asImage() -> NSImage? {
+        NSImage(size: bounds.size, flipped: false) { [weak self] rect in
+            guard let self,
+                  let rep = bitmapImageRepForCachingDisplay(in: rect)
+            else { return false }
+
+            cacheDisplay(in: rect, to: rep)
+            return rep.draw()
+        }
+    }
+}
+#endif
