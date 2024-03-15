@@ -289,7 +289,7 @@ extension String {
 
     // MARK: - 时间转时间戳函数
     public static func timeToTimeStamp(time: String) -> Double {
-        let dfmatter = DateFormatter.cicDefault(format: .yyyyMMddHHmm)
+        let dfmatter = DateFormatter.cicDefault(format: .yyyyMMddHHmmss)
         let last = dfmatter.date(from: time)
         let timeStamp = last?.timeIntervalSince1970
         return timeStamp ?? Date().timeIntervalSince1970
