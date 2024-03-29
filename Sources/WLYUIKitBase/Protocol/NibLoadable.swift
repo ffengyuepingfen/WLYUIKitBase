@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+#warning(" `NibLoadable`  this protocol will never be used again")
+
+@available(*, deprecated, message: "this protocol will never be used again")
 public protocol NibLoadable {
 }
 extension NibLoadable where Self : UIView {

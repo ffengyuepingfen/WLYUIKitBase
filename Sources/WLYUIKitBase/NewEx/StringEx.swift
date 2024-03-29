@@ -24,6 +24,21 @@ extension String {
 
 extension String {
     
+    public static func dataWithHexString(hex: String) -> Data {
+        var hex = hex
+        var data = Data()
+        while hex.count > 0 {
+            let subIndex = hex.index(hex.startIndex, offsetBy: 2)
+            let c = String(hex[..<subIndex])
+            hex = String(hex[subIndex...])
+            var ch: UInt64 = 0
+            Scanner(string: c).scanHexInt64(&ch)
+            var char = UInt8(ch)
+            data.append(&char, count: 1)
+        }
+        return data
+    }
+    
     /// 加解密用的方法:替换字符串某一个文字的字符
     public mutating func swapAtDe(index: NSInteger, c: Character) {
         let inde = self.index(self.startIndex, offsetBy: index)
@@ -43,6 +58,17 @@ extension String {
         } else {
             return self
         }
+    }
+    
+    //根据开始位置和长度截取字符串
+    func subString(start:Int, length:Int = -1) -> String {
+        var len = length
+        if len == -1 {
+            len = self.count - start
+        }
+        let st = self.index(startIndex, offsetBy:start)
+        let en = self.index(st, offsetBy:len)
+        return String(self[st ..< en])
     }
 
     /// Description 截取到某一位
@@ -149,21 +175,11 @@ private func getNormalStrSize(str: String? = nil, attriStr: NSMutableAttributedS
     }
 
     return CGSize.zero
-
 }
 
 extension String {
 
-    //根据开始位置和长度截取字符串
-    func subString(start:Int, length:Int = -1) -> String {
-        var len = length
-        if len == -1 {
-            len = self.count - start
-        }
-        let st = self.index(startIndex, offsetBy:start)
-        let en = self.index(st, offsetBy:len)
-        return String(self[st ..< en])
-    }
+   
     
     
     // 判断输入的字符串是否为数字，不含其它字符
@@ -352,10 +368,6 @@ extension StringProtocol {
         }
     }
 }
-
-
-import UIKit
-import CommonCrypto
 
 // MARK: - 一：字符串基本的扩展
 public extension ExpressibleByStringLiteral {

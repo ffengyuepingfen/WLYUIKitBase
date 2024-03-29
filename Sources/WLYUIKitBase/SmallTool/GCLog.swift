@@ -62,7 +62,7 @@ public struct GCLog {
         }
         let currentDate = Date.currentDate
         let prefix = """
-             ---begin---------------☘️☘️☘️☘️☘️☘️☘️----------------
+             ---begin---------------\(option == .error ? "❌❌❌❌❌❌❌" : "☘️☘️☘️☘️☘️☘️☘️")----------------
              当前时间：\(currentDate)
              当前文件完整的路径是：\(file)
              当前文件是：\(file.lastPathComponent)
