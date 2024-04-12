@@ -45,6 +45,8 @@ public class CicStepTagView: UIView {
     
     private var maxCount = 999
     
+    private var minCount = 1
+    
     private var currentCount = 1 {
         didSet {
             inputTextView.text = "\(currentCount)"
@@ -53,7 +55,7 @@ public class CicStepTagView: UIView {
     
     private var initialValue = 1
     
-    public init(origin: CGPoint = CGPoint(x: 0, y: 0), initial: NSInteger = 1, max: NSInteger = 999 , callBack:@escaping (((NSInteger))-> Void)) {
+    public init(origin: CGPoint = CGPoint(x: 0, y: 0), initial: NSInteger = 1, max: NSInteger = 999, min: NSInteger = 1, callBack:@escaping (((NSInteger))-> Void)) {
         let height = CicStepTagView.itemWidth + CicStepTagView.space*2
         let width = CicStepTagView.itemWidth*4 + CicStepTagView.space*4
         super.init(frame: CGRect(x: origin.x, y: origin.y, width: width, height: height))
@@ -61,6 +63,7 @@ public class CicStepTagView: UIView {
         self.widthAnchor.constraint(equalToConstant: width).isActive = true
         self.callBack = callBack
         self.maxCount = max
+        self.minCount = min
         self.initialValue = initial
         self.currentCount = initial
         self.inputTextView.text = "\(currentCount)"
@@ -88,8 +91,8 @@ public class CicStepTagView: UIView {
     
     @objc private func reduceAction() {
         
-        if currentCount == initialValue {
-            PumpkinHUD.showMessage("不能小于\(initialValue)")
+        if currentCount == minCount {
+            PumpkinHUD.showMessage("不能小于\(minCount)")
             return
         }
         currentCount -= 1
