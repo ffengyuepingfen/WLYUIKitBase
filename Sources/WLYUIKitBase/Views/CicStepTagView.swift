@@ -51,7 +51,9 @@ public class CicStepTagView: UIView {
         }
     }
     
-    public init(origin: CGPoint = CGPoint(x: 0, y: 0), max: NSInteger = 999 , callBack:@escaping (((NSInteger))-> Void)) {
+    private var initialValue = 1
+    
+    public init(origin: CGPoint = CGPoint(x: 0, y: 0), initial: NSInteger = 1, max: NSInteger = 999 , callBack:@escaping (((NSInteger))-> Void)) {
         let height = CicStepTagView.itemWidth + CicStepTagView.space*2
         let width = CicStepTagView.itemWidth*4 + CicStepTagView.space*4
         super.init(frame: CGRect(x: origin.x, y: origin.y, width: width, height: height))
@@ -59,6 +61,9 @@ public class CicStepTagView: UIView {
         self.widthAnchor.constraint(equalToConstant: width).isActive = true
         self.callBack = callBack
         self.maxCount = max
+        self.initialValue = initial
+        self.currentCount = initial
+        self.inputTextView.text = "\(currentCount)"
         initUI()
     }
     
@@ -74,6 +79,7 @@ public class CicStepTagView: UIView {
     /// 加一
     @objc private func increaseAction() {
         if currentCount == maxCount {
+            PumpkinHUD.showMessage("不能大于\(maxCount)")
             return
         }
         currentCount += 1
@@ -82,7 +88,8 @@ public class CicStepTagView: UIView {
     
     @objc private func reduceAction() {
         
-        if currentCount == 1 {
+        if currentCount == initialValue {
+            PumpkinHUD.showMessage("不能小于\(initialValue)")
             return
         }
         currentCount -= 1
