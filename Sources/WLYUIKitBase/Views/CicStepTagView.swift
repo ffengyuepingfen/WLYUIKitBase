@@ -89,7 +89,8 @@ public class CicStepTagView: UIView {
         callBack(currentCount)
     }
     
-    @objc private func reduceAction() {
+    /// 减一
+    @objc public func reduceAction() {
         
         if currentCount == minCount {
             PumpkinHUD.showMessage("不能小于\(minCount)")
