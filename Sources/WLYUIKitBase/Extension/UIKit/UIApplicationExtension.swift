@@ -191,7 +191,7 @@ public extension UIApplication {
 
 // MARK: - 三、打开系统应用和第三方APP
 /// 系统app
-public enum JKSystemAppType: String {
+public enum SystemAppType: String {
     case safari = "http://"
     case googleMaps = "http://maps.google.com"
     case Phone = "tel://"
@@ -204,7 +204,7 @@ public enum JKSystemAppType: String {
 }
 
 /// 第三方app
-public enum JKThirdPartyAppType: String {
+public enum ThirdPartyAppType: String {
     /// 微信
     case weixin = "weixin://"
     /// QQ
@@ -287,14 +287,14 @@ public extension UIApplication {
     // MARK: 打开系统app
     /// 打开系统app
     /// - Parameter type: 系统app类型
-    static func openSystemApp(type: JKSystemAppType, complete: @escaping ((Bool) -> Void)) {
-        JKGlobalTools.openUrl(url: URL(string: type.rawValue)!, complete: complete)
+    static func openSystemApp(type: SystemAppType, complete: @escaping ((Bool) -> Void)) {
+        CicGlobalTools.openUrl(url: URL(string: type.rawValue)!, complete: complete)
     }
     
     // MARK: 打开第三方app
     /// 打开第三方app
     /// - Parameter type: 第三方app类型
-    static func openThirdPartyApp(type: JKThirdPartyAppType, complete: @escaping ((Bool) -> Void)) {
-        JKGlobalTools.openUrl(url: URL(string: type.rawValue)!, complete: complete)
+    static func openThirdPartyApp(type: ThirdPartyAppType, complete: @escaping ((Bool) -> Void)) {
+        CicGlobalTools.openUrl(url: URL(string: type.rawValue)!, complete: complete)
     }
 }
