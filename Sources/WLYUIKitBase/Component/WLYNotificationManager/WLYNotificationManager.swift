@@ -192,6 +192,5 @@ extension WLYNotificationManager: UNUserNotificationCenterDelegate {
         }
         
         completionHandler() // 系统要求执行这个方法
-        
     }
 }

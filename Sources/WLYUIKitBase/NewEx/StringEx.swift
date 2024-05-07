@@ -370,35 +370,21 @@ extension StringProtocol {
 }
 
 // MARK: - 一：字符串基本的扩展
-public extension ExpressibleByStringLiteral {
-    
-    // MARK: 1.1、字符串的长度
-    /// 字符串的长度
-    var length: Int {
-        let string = self as! String
-        return string.count
-    }
-    
-    // MARK: 1.2、判断是否包含某个子串
-    /// 判断是否包含某个子串
-    /// - Parameter find: 子串
-    /// - Returns: Bool
-    func contains(find: String) -> Bool {
-        return (self as! String).range(of: find) != nil
-    }
+public extension String {
+
     
     // MARK: 1.3、判断是否包含某个子串 -- 忽略大小写
     ///  判断是否包含某个子串 -- 忽略大小写
     /// - Parameter find: 子串
     /// - Returns: Bool
     func containsIgnoringCase(find: String) -> Bool {
-        return (self as! String).range(of: find, options: .caseInsensitive) != nil
+        return self.range(of: find, options: .caseInsensitive) != nil
     }
     
     // MARK: 1.4、字符串转 self64
     /// 字符串 self64 编码
     var self64Encode: String? {
-        guard let codingData = (self as! String).data(using: .utf8) else {
+        guard let codingData = self.data(using: .utf8) else {
             return nil
         }
         return codingData.base64EncodedString()
@@ -406,7 +392,7 @@ public extension ExpressibleByStringLiteral {
     // MARK: 1.5、self64转字符串转
     /// 字符串 self64 编码
     var self64Decode: String? {
-        guard let decryptionData = Data(base64Encoded: self as! String, options: .ignoreUnknownCharacters) else {
+        guard let decryptionData = Data(base64Encoded: self, options: .ignoreUnknownCharacters) else {
             return nil
         }
         return String(data: decryptionData, encoding: .utf8)
@@ -415,7 +401,7 @@ public extension ExpressibleByStringLiteral {
     // MARK: 1.6、将16进制字符串转为Int
     /// 将16进制字符串转为Int
     var hexInt: Int {
-        return Int(self as! String, radix: 16) ?? 0
+        return Int(self, radix: 16) ?? 0
     }
     
     // MARK: 1.7、判断是不是九宫格键盘
@@ -424,7 +410,7 @@ public extension ExpressibleByStringLiteral {
         let other : NSString = "➋➌➍➎➏➐➑➒"
         let len = (self as! String).count
         for _ in 0..<len {
-            if !(other.range(of: self as! String).location != NSNotFound) {
+            if !(other.range(of: self).location != NSNotFound) {
                 return false
             }
         }
@@ -467,7 +453,7 @@ public extension ExpressibleByStringLiteral {
     /// 字符串转数组
     /// - Returns: 转化后的数组
     func toArray() -> Array<Any> {
-        let a = Array(self as! String)
+        let a = Array(self)
         return a
     }
     
@@ -1318,7 +1304,7 @@ extension ExpressibleByStringLiteral {
 }
 
 // MARK: - 八、字符串包含表情的处理
-extension ExpressibleByStringLiteral {
+extension String {
     
     // MARK: 8.1、检查字符串是否包含 Emoji 表情
     /// 检查字符串是否包含 Emoji 表情
@@ -1344,7 +1330,7 @@ extension ExpressibleByStringLiteral {
     /// 检查字符串是否包含 Emoji 表情
     /// - Returns: bool
     public func includesEmoji() -> Bool {
-        for i in 0...length {
+        for i in 0...count {
             let c: unichar = ((self as! String) as NSString).character(at: i)
             if (0xD800 <= c && c <= 0xDBFF) || (0xDC00 <= c && c <= 0xDFFF) {
                 return true
@@ -1361,7 +1347,7 @@ extension ExpressibleByStringLiteral {
         do {
             let regex = try NSRegularExpression(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: NSRegularExpression.Options.caseInsensitive)
             
-            let modifiedString = regex.stringByReplacingMatches(in: (self as! String), options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.length), withTemplate: "")
+            let modifiedString = regex.stringByReplacingMatches(in: (self as! String), options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.count), withTemplate: "")
             
             return modifiedString
         } catch {
@@ -1372,7 +1358,7 @@ extension ExpressibleByStringLiteral {
 }
 
 // MARK: - 九、字符串的一些正则校验
-extension ExpressibleByStringLiteral {
+extension String {
     
     // MARK: 9.1、判断是否全是空白,包括空白字符和换行符号，长度为0返回true
     /// 判断是否全是空白,包括空白字符和换行符号，长度为0返回true
@@ -1680,7 +1666,7 @@ extension ExpressibleByStringLiteral {
 }
 
 // MARK: - 十、字符串截取的操作
-extension ExpressibleByStringLiteral {
+extension String {
     
     // MARK: 10.1、截取字符串从开始到 index
     /// 截取字符串从开始到 index
@@ -1793,7 +1779,7 @@ extension ExpressibleByStringLiteral {
     /// - Parameter str: 子串
     /// - Returns: 某个子串在父串中的范围
     public func nsRange(of subString: String) -> NSRange? {
-        guard (self as! String).contains(find: subString) else {
+        guard self.contains(subString) else {
             return nil
         }
         let text = (self as! String) as NSString
@@ -1817,7 +1803,7 @@ extension ExpressibleByStringLiteral {
 }
 
 // MARK: - 十一、字符串编码的处理
-extension ExpressibleByStringLiteral {
+extension String {
     
     // MARK: 11.1、特殊字符编码处理urlEncoded
     /// url编码 默认urlQueryAllowed

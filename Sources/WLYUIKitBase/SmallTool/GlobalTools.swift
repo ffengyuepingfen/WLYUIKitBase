@@ -9,7 +9,7 @@ import UIKit
 import StoreKit
 import SystemConfiguration.CaptiveNetwork
 // MARK: - 一、基本的工具
-public struct JKGlobalTools {
+public struct CicGlobalTools {
     
     // MARK: 1.1、拨打电话
     /// 拨打电话的才处理
@@ -42,19 +42,6 @@ public struct JKGlobalTools {
             }
         })
         vc.showDetailViewController(productView, sender: vc)
-    }
-    
-    // MARK: 1.3、从 storyboard 中唤醒 viewcontroller
-    /// 从 storyboard 中唤醒 viewcontroller
-    /// - Parameters:
-    ///   - storyboardID: viewcontroller 在 storyboard 中的 id
-    ///   - fromStoryboard: storyboard 名称
-    ///   - bundle: Bundle  默认为 main
-    /// - Returns: UIviewcontroller
-    public static func getViewController(storyboardID: String, fromStoryboard: String, bundle: Bundle? = nil) -> UIViewController {
-        let sBundle = bundle ?? Bundle.main
-        let story = UIStoryboard(name: fromStoryboard, bundle: sBundle)
-        return story.instantiateViewController(withIdentifier: storyboardID)
     }
     
     // MARK: 1.4、传进某个版本号 和 当前app版本号作对比，注意：版本号必须是三位的，比如：1.1.1、1.23.45、23.4.6
@@ -139,18 +126,6 @@ public struct JKGlobalTools {
     
     // MARK: 1.7、跳转URL
     public static func openUrl(url: URL, complete: @escaping ((Bool) -> Void)) {
-        // iOS 10.0 以前
-        guard #available(iOS 10.0, *) else {
-            let success = UIApplication.shared.openURL(url)
-            if (success) {
-                GConfig.log("10以前可以跳转")
-                complete(true)
-            } else {
-                GConfig.log("10以前不能完成跳转")
-                complete(false)
-            }
-            return
-        }
         // iOS 10.0 以后
         UIApplication.shared.open(url, options: [:]) { (success) in
             if (success) {
@@ -228,7 +203,7 @@ public struct JKGlobalTools {
     }
 }
 
-private extension JKGlobalTools {
+private extension CicGlobalTools {
     // MARK: 版本号 version 分隔三个 Int 值
     /// 分隔版本号
     /// - Parameter version: 版本号
@@ -243,9 +218,9 @@ private extension JKGlobalTools {
         }
         return (true, [versionValue1, versionValue2, versionValue3])
     }
-    
-    func openUrl(complete: @escaping ((Bool) -> Void)) {
-        
-    }
+//    
+//    func openUrl(complete: @escaping ((Bool) -> Void)) {
+//        
+//    }
 }
 

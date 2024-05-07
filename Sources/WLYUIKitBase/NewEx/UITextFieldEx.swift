@@ -45,7 +45,7 @@ extension UITextField {
                               name: String,
                               isSecure: Bool = false) -> UITextField {
         let input = UITextField()
-        input.backgroundColor = UIColor.PrimaryBackground()
+        input.backgroundColor = UIColor.SecondaryBackground()
         input.placeholder = placeholder
         input.keyboardType = keyboardType
         input.textContentType = textContentType

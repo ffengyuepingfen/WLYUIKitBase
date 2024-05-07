@@ -9,9 +9,9 @@
 /**
  # IMPORTANT: WLYsegementView:
  创建一个新闻标题样式的管理页面.
- 1. <#Start with#>
- 1. <#Write anything important you want to emphasize#>
- 1. <#End with  at a new line.#>
+ 1. Start with
+ 1. Write anything important you want to emphasize
+ 1. End with  at a new line.
  ---
  [More info - https://github.com/kingsic/SGPagingView](https://github.com/kingsic/SGPagingView)
  */

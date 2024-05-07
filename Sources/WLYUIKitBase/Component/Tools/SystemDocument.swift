@@ -95,20 +95,3 @@ class FileTools {
         }
     }
 }
-
-public extension Array where Element: Hashable {
-
-    /// 去除数组中重复的元素，如果有重复的，将优先保留前面的一个。
-    /// - Returns: 去重后的新数组
-    func removeDuplicates() -> [Element] {
-        var newAray: [Element] = []
-        var set = Set<Element>()
-        for item in self {
-            if !set.contains(item) {
-                newAray.append(item)
-                set.insert(item)
-            }
-        }
-        return newAray
-    }
-}

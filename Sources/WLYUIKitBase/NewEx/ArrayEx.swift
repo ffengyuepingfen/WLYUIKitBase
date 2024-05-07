@@ -1,9 +1,8 @@
 //
-//  Array_Extension.swift
-//  SwiftDemo
+//  ArrayEx.swift
+//  
 //
-//  Created by 中行讯 on 2018/7/24.
-//  Copyright © 2018年 Beijing CIC Technology Co., Ltd. All rights reserved.
+//  Created by Laowang on 2024/4/17.
 //
 
 import Foundation
@@ -14,8 +13,8 @@ extension Array {
     ///
     /// - Parameter array: array description
     /// - Returns: return value description
-    public func getBufferaddress<T>(array: [T]) -> String {
-        return array.withUnsafeBufferPointer {
+    public func getBufferaddress() -> String {
+        return self.withUnsafeBufferPointer {
             return String(describing: $0)
         }
     }
@@ -72,7 +71,7 @@ extension Collection {
 extension Array {
     
     /// 字典转换为JSONString
-    func toJSON() -> String? {
+    public func toJSON() -> String? {
         let array = self
         guard JSONSerialization.isValidJSONObject(array) else {
             GConfig.log("无法解析出JSONString")
@@ -98,6 +97,33 @@ extension Array {
         }
         return result
     }
+    
+    /// 从数组中挑出随机的n个元素成新的数组
+    /// - Parameters:
+    ///   - count: 返回元素的数量,传入0 则返回空数组,大于数组元素数量或者小于0则返回所有元素并打乱顺序
+    ///   - duplicates: 是否允许重复的选取某一个下标的元素，默认是false
+    /// - Returns: 随机之后的数组
+    public func random(count: Int = 0, duplicates: Bool = false) -> Array {
+        if count == 0 {
+            return []
+        }
+        var n = count
+        if n > self.count || n < 0 {
+            n = self.count
+        }
+
+        var array: [Element] = []
+        var arrayTemp = self
+        for _ in 1 ... n {
+            let rand = Int(arc4random_uniform(UInt32(arrayTemp.count)))
+            array.append(arrayTemp[rand])
+            if !duplicates {
+                arrayTemp.remove(at: rand)
+            }
+        }
+        return array
+    }
+    
 }
 
 // MARK: - 二、数组 有关索引 的扩展方法
@@ -114,17 +140,6 @@ public extension Array where Element : Equatable {
         }
         return indexes
     }
-    
-    // MARK: 2.2、获取元素首次出现的位置
-    /// 获取元素首次出现的位置
-    /// - Parameter item: 元素
-    /// - Returns: 索引值
-//    func firstIndex(_ item: Element) -> Int? {
-//        for (index, value) in self.enumerated() where value == item {
-//            return index
-//        }
-//        return nil
-//    }
     
     // MARK: 2.3、获取元素最后出现的位置
     /// 获取元素最后出现的位置
@@ -227,5 +242,42 @@ public extension Array where Self.Element == String {
     /// - Returns: 转化后的字符串
     func toStrinig(separator: String = "") -> String {
         return self.joined(separator: separator)
+    }
+}
+
+
+public extension Array where Element: Hashable {
+    
+    /// 去除数组中重复的元素，如果有重复的，将优先保留前面的一个。
+    /// - Returns: 去重后的新数组
+    func removeDuplicates() -> [Element] {
+        var newAray: [Element] = []
+        var set = Set<Element>()
+        for item in self {
+            if !set.contains(item) {
+                newAray.append(item)
+                set.insert(item)
+            }
+        }
+        return newAray
+    }
+}
+
+public extension Array {
+    
+    /// 去除数组中重复的元素，如果有重复的，将优先保留前面的一个。
+    /// - Parameter keypath: 用于做对比的属性
+    /// - Returns: 去重后的新数组
+    func removeDuplicates<Value>(by keypath: KeyPath<Element, Value>) -> [Element] where Value: Hashable {
+        var newAray: [Element] = []
+        var set = Set<Value>()
+        for item in self {
+            let value = item[keyPath: keypath]
+            if !set.contains(value) {
+                newAray.append(item)
+                set.insert(value)
+            }
+        }
+        return newAray
     }
 }
