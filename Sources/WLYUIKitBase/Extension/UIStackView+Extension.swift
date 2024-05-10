@@ -206,7 +206,11 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
     
     private var themeColor = UIColor.PrimaryBackground()
     
-    public init(isVStack: Bool = true,insets: UIEdgeInsets = UIEdgeInsets.sixteen, isBounces: Bool = true, fillColor: UIColor = UIColor.PrimaryBackground()) {
+    public init(isVStack: Bool = true,
+                insets: UIEdgeInsets = UIEdgeInsets.sixteen,
+                isBounces: Bool = true,
+                isShowLoading: Bool = false,
+                fillColor: UIColor = UIColor.PrimaryBackground()) {
         self.isBounces = isBounces
         self.themeColor = fillColor
         super.init(frame: CGRect.zero)
@@ -218,6 +222,15 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
             self.scrollView.isDirectionalLockEnabled = true
         }
         stackView.backgroundColor = .PrimaryBackground()
+        if isShowLoading {
+            // 初始化下拉刷新控件
+            let refreshControl = UIRefreshControl()
+            refreshControl.tintColor = UIColor.white
+            // 设置刷新动作
+            refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+            // 添加到 tableView
+            scrollView.refreshControl = refreshControl
+        }
         initUI(insets: insets)
     }
     
@@ -226,13 +239,6 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
     }
     
     private func initUI(insets: UIEdgeInsets) {
-        // 初始化下拉刷新控件
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = UIColor.white
-        // 设置刷新动作
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        // 添加到 tableView
-        scrollView.refreshControl = refreshControl
         self.addSubviewAnchor(subView: scrollView)
         scrollView.addSubviewAnchor(subView: stackView, insets: insets)
     }
