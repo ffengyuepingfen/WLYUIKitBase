@@ -192,6 +192,7 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
         ss.showsHorizontalScrollIndicator = false
         ss.showsVerticalScrollIndicator = false
         ss.delegate = self
+        
         ss.bounces = isBounces
         return ss
     }()
@@ -201,8 +202,13 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
     
     public var callIndex: ((Int)->Void)?
     
-    public init(isVStack: Bool = true,insets: UIEdgeInsets = UIEdgeInsets.sixteen, isBounces: Bool = true) {
+    public var updateAction: (()->Void)?
+    
+    private var themeColor = UIColor.PrimaryBackground()
+    
+    public init(isVStack: Bool = true,insets: UIEdgeInsets = UIEdgeInsets.sixteen, isBounces: Bool = true, fillColor: UIColor = UIColor.PrimaryBackground()) {
         self.isBounces = isBounces
+        self.themeColor = fillColor
         super.init(frame: CGRect.zero)
         if isVStack {
             stackView = VVStack(spacing: 12.0, alignment: .center)
@@ -210,8 +216,8 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
             stackView = HHStack(alignment: .center)
             self.scrollView.isPagingEnabled = true
             self.scrollView.isDirectionalLockEnabled = true
-//            self.scrollView.panGestureRecognizer.delegate = self
         }
+        stackView.backgroundColor = .PrimaryBackground()
         initUI(insets: insets)
     }
     
@@ -220,10 +226,23 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
     }
     
     private func initUI(insets: UIEdgeInsets) {
+        // 初始化下拉刷新控件
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.white
+        // 设置刷新动作
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        // 添加到 tableView
+        scrollView.refreshControl = refreshControl
         self.addSubviewAnchor(subView: scrollView)
         scrollView.addSubviewAnchor(subView: stackView, insets: insets)
     }
     
+    @objc func refreshData() {
+        if let updateAction {
+            updateAction()
+        }
+        scrollView.refreshControl?.endRefreshing()
+    }
     
     /// 生成一个指定间隔的填充区域
     public func spacer(_ space: CGFloat) -> UIView {
@@ -276,6 +295,23 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
         let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
         if let callIndex {
             callIndex(Int(pageIndex))
+        }
+    }
+   
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollViewHeight = scrollView.bounds.size.height
+        let contentHeight = scrollView.contentSize.height
+        let yOffset = scrollView.contentOffset.y
+        let maxOffset = scrollView.contentInset.top + scrollViewHeight - contentHeight
+
+        // 判断是否正在下拉
+        if yOffset < 0 {
+            // 用户正在下拉
+            print("下拉中...")
+            // 这里可以添加你的逻辑，比如触发加载更多数据等
+            scrollView.backgroundColor = themeColor
+        }else{
+            scrollView.backgroundColor = .PrimaryBackground()
         }
     }
 }

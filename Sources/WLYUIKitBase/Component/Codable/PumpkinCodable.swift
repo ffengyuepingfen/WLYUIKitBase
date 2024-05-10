@@ -8,26 +8,21 @@
 
 import Foundation
 
-enum MyCustomErrorType: Error {
-    case errorReason
-}
-
-public func pumpkinDecoder<T>(jsonstr: String?, modelType: T.Type) throws -> T where T: Codable {
+public func pumpkinDecoder<T>(jsonstr: String?, modelType: T.Type) -> T? where T: Codable {
     
     if let json = jsonstr, json != "" {
         // 1. Create a data object
         let data = json.data(using: .utf8)!
         let decoder = JSONDecoder()
         do {
-            let episode = try decoder.decode(modelType, from: data)
+            let episode = try? decoder.decode(modelType, from: data)
             return episode
         } catch DecodingError.dataCorrupted(let error) {
-            GConfig.log("=============")
             GConfig.log("\(error.debugDescription)")
-            throw MyCustomErrorType.errorReason
+            return nil
         }
     }else{
-        throw MyCustomErrorType.errorReason
+        return nil
     }
 }
 
