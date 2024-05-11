@@ -221,8 +221,9 @@ public class CICMianFlowView: UIView, UIScrollViewDelegate, UIGestureRecognizerD
             self.scrollView.isPagingEnabled = true
             self.scrollView.isDirectionalLockEnabled = true
         }
-        stackView.backgroundColor = .PrimaryBackground()
+        
         if isShowLoading {
+            stackView.backgroundColor = .PrimaryBackground()
             // 初始化下拉刷新控件
             let refreshControl = UIRefreshControl()
             refreshControl.tintColor = UIColor.white
